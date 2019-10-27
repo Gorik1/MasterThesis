@@ -1,0 +1,31 @@
+\chapter{Results}
+	\section{Physical Results}
+	\section{Neural Networks}
+		\subsection{Hyper Parameters}
+			The following subsets of hyper parameters have been investigated:
+			Beginning with investigating the effect of the data amount. Using same network size per 
+			\begin{tabular}{c||c|c|c|c|c}
+				Number & Width & Depth (hidden) & Amount of Data & Activation & Droprate \\
+				\hline \hline
+				1 & 100 & 10 & $2^17$ & Relu & 0.25\\
+				2 & X & X & $2^16$ & X & X \\
+				3 & X & X & $2^15$ & X & X \\
+				4 & X & X & $2^14$ & X & X \\
+				5 & 80 & X & $2^17$ & X & X \\
+				6 & X & X & $2^16$ & X & X \\
+				7 & X & X & $2^15$ & X & X \\
+				8 & X & X & $2^14$ & X & X \\
+			\end{tabular}
+			\subsubsection{Depth \& Width}
+				Depth and Width together determine the total number parameters and complexity of the network. The question is how complex does the network need to be to accurately learn the model. Ideally we'd like to trim the network as much as possible without loosing too much accuracy.\\
+			\subsubsection{Activation}
+				Elu, Relu, Sigmoid
+			\subsubsection{Loss Function}
+				SGD
+		\subsection{Derivatives}
+	\section{Gaussian Processes}
+		\subsection{Subdivion of parameter space}
+		\subsection{Derivatives}
+	\section{Comparison}
+		\subsection{Accuracy}
+	\section{NNGP - Maybe}

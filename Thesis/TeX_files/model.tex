@@ -1,0 +1,14 @@
+\chapter{Model}
+	\section{EIRENE 1D}
+		% Mitja Beckers
+		%\subsection{Point source}
+		%\subsection{Volume source}
+		\subsection{Kinetic Boltzmann Equations}
+	\section{Plasma Profiles}
+		For the inputs of Eirene plasma profiles are needed, that can be dynamically provided by other algorithms like SOLPS\footnote{Citation needed} or EMC3\footnote{Citation needed}. Central piece of this work is to investigate if a substitute function can be found for the full range of possible plasma profiles by using big data methods. One can ascertain the physical limits of the parameters constituting the plasma profiles from table \ref{Par_Bounds}. These limits are based on different phenomenons in plasma physics, which can be 
+	\section{Choice of sampling set}
+		Since the parameter space is high dimensional, the training points have not been selected randomly. According to \footnote{Add reference} randomly sampled points might form clusters, which could skew the training towards a subsection of the parameter space. To avoid this a low discrepancy sequence, namely the Sobol sequence, has been chosen from which the training points are sampled.
+		%\missingfigure{Clustering of points sampled from equal distribution}
+		\subsection{Sobol Sequence}
+			The sobol sequence was first invented by the mathematician Ilya M. Sobol\footnote{Add citation} 
+			\subsubsection{Low-discrepency sequences}

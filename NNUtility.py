@@ -1,9 +1,11 @@
 import numpy as np
 
 def load_set(path):
-    data = np.loadtxt(path)
-    x_data = data[:, :-2]
-    y_data = data[:, -2:-1]
+    filehandle = open(path)
+    data = np.loadtxt(filehandle)
+    x_data = data[:, :-3]
+    y_data = data[:, -3]
+    std_time_data = data[:, -2:]
     return x_data, y_data
 
 def norm_var(data):

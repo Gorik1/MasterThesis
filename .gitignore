@@ -1,1 +1,11 @@
+#ignore ini files
 *.ini
+
+#ignore all zip files
+*.zip
+
+#ignore data folder (data too large)
+Data
+
+#ignore Non thesis relevant folders
+Guide
