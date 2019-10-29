@@ -9,3 +9,7 @@ Data
 
 #ignore Non thesis relevant folders
 Guide
+
+#ignore local ide folders
+.spyproject
+_pycache_
