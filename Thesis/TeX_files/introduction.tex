@@ -23,18 +23,17 @@
 	To counter the erosion of integral machine parts a device called blanket is used as a replaceable first layer. The operating life of the blanket needs to be taken into consideration for maintenance cycles and operating cost of a fusion power plant.
 	
 	\section{PROCESS Systems Code}
-	The systems code PROCESS\cite{process} is concerned with the combination of physics, engineering and economical simulation and evaluation for a fusion power plant scenario\footnote{So far most published work has been on ITER and DEMO Tokamak like scenarios.}. It is based on TETRA (Tokamak Engineering Test Reactor Analysis) \cite{TETRA}and has been used for the Power Plant Conceptual Study \cite{PPCS}.\\
+	The systems code PROCESS\cite{process} is concerned with the combination of physics, engineering and economical simulation and evaluation for a fusion power plant scenario\footnote{So far most published work has been on ITER and DEMO Tokamak like scenarios.}. It is based on TETRA (Tokamak Engineering Test Reactor Analysis) \cite{TETRA} and has been used for the Power Plant Conceptual Study \cite{PPCS}.\\
 	
 	PROCESS can be operated in two different modes, namely optimization mode and non-optimization mode. In non-optimization mode PROCESS will find a single set of parameters for ...\todo{formulate the extend of found parameters.}, while the more commonly used optimization mode finds a set of parameters that minimize or maximize a chosen figure of merit. The list of figures of merit includes capital cost, cost of electricity or more physical/engineering related quantities such as neutron wall load. Both modes result in a set of parameters consistent with the input parameters and constraints.\\ %Furthermore optimization mode will enforce inequalities in addition to the consistency equations which are also enforced in non-optimization mode
 	There are several hundred input parameters which can be chosen as iteration variable for a run in optimization mode. Studies of a given design for a fusion device might want to use the optimization mode to scan a range in multiple input parameters, easily resulting in a high number of runs and an accordingly high total run time. Hence underlying physical models have to be sufficiently simplified in an attempt to balance required runtime against a higher potential for error.\\
 	
-	Further information on the details of PROCESS code operation can be found in the publication of M. Kovari et. al \cite{process}.\\
+	Further information on the details of PROCESS code operation can be found in the publication of M. Kovari et. al \cite{process}\todo{Fix citation}.\\
 	
 	\section{Reduced Model Approaches}
-	Simulations based on complex models tend to have long run times, which is often unsuited for studying general systematic behaviours. Reduced model approaches are used to reduce model complexity by finding hidden parameters or finding surrogate functions.
-
-	\todo{Neural Networks}
-	\todo{Gaussian Processing}
-	\todo{Random Forests}
+	Simulations based on complex models face the barrier of having long run times, which is often unsuited for studying general systematic behaviours. Reducing run time of numerical simulations can be achieved via model order reduction methods like dimensionality reductions.
+	\todo{Read Model Order Reduction: Theory, Research Aspects and Applications by Wilhelmus H. A. Schilders}
+	Ideally one would apply control theory to the given system with proper orthogonal decomposition and reduced basis methods. Effectively applying a coordination transformation to a set of hidden parameters.\todo{Read up on exact mathematics background}\\
+	Given that in many cases a complete analytical model can not be given there are approaches to model order reduction using machine learning algorithms that approximate the simulated system via surrogate functions. The resulting surrogates do not give further insight into working mechanisms of the system, but allow for much faster computation at reasonable approximation errors. Depending on the desired capabilities of the surrogate a machine learning methods should be chosen accordingly. The used methods are discussed in further detail in the methods chapter \ref{chapter_method}
 	
 	
