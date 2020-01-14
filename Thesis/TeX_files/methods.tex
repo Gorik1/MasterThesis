@@ -14,22 +14,22 @@
 		The following section is concerned with discussing neural networks as a means of investigating functional dependencies.\footnote{To aid with understanding the terminology used there is a glossary in the appendix section \ref{Glossary}.}\\		
 		\subsection{General Introduction To Neural Networks}
 		%Definition
-		An artificial neural network in the following called neural network, abbreviated to NN, is "a computing system made up of a number of simple, highly interconnected processing elements, which process information by their dynamic state response to external inputs." \cite{NNPrimer} %\todo{cite: In "Neural Network Primer: Part I" by Maureen Caudill, AI Expert, Feb. 1989}\\
+		An artificial neural network (ANN) in the following called neural network, abbreviated to NN, is "a computing system made up of a number of simple, highly interconnected processing elements, which process information by their dynamic state response to external inputs." \cite{NNPrimer} %\todo{cite: In "Neural Network Primer: Part I" by Maureen Caudill, AI Expert, Feb. 1989}\\
 		% Historical Context, First Introduction, Basic idea
-		First concepts of learning algorithms based on neural plasticity have been introduced in the late 1940s by D. O. Hebb \footnote{citation needed}. In 1975 backpropagation became possible via an algorithm by Werbo\footnote{citation needed}, this led to an increase in machine learning popularity. During the 1980s other methods like support vector machines and linear classifiers became the preferred and/or dominating machine learning approach. With the rise in computational power in recent years neural networks have gained back a lot of popularity.\\
+		First concepts of learning algorithms based on neural plasticity have been introduced in the late 1940s by D. O. Hebb \todo{citation needed}. In 1975 backpropagation became possible via an algorithm by Werbo\todo{citation needed}, this led to an increase in machine learning popularity. During the 1980s other methods like support vector machines and linear classifiers became the preferred and/or dominating machine learning approach. With the rise in computational power in recent years neural networks have gained back a lot of popularity.\\
 		The concept idea of neural networks is to replicate the ability of the human brain to learn and to adapt to new information. The structure and naming convention reflect this origin.\\
 		%Structue: Requirements, Deep networks
-		A neural network is made up of small processing units called neurons. These are grouped together into so called layers. Every network needs at least two layers, the input layer and the output layer. If a network has intermediary layers between input and output, they are called hidden layers. A network with at least two hidden layers is called a deep network. The amount of layers in a network is called the depth of the network. While the amount of neurons in a layer is called the layers width. As mentioned above the neurons are highly interconnected. The structure of connections determine the type of network. In the following we will discuss fully connected networks\footnote{Fully connected networks are also called dense networks.}. These feature a connection between each neuron of adjacent layers\footnote{The amount of connections between two layers in a dense network is therefore equal the the product of the width of adjacent layers.}
+		A neural network is made up of small processing units called neurons. These are grouped together into so called layers. Every network needs at least two layers, the input layer and the output layer. If a network has intermediary layers between input and output, they are called hidden layers. A network with at least two hidden layers is called a deep neural network (DNN). The amount of layers in a network is called the depth of the network. While the amount of neurons in a layer is called the layers width.
+		%As mentioned above the neurons are highly interconnected. The structure of connections determine the type of network. In the following we will discuss fully connected networks\footnote{Fully connected networks are also called dense networks.}. These feature a connection between each neuron of adjacent layers\footnote{The amount of connections between two layers in a dense network is therefore equal the the product of the width of adjacent layers.}
 		%Basic working principle, introduced non-linearity
-		From layer to layer the information stored in the neurons is transferred into the next layer by a weighted sum and a non-linear function called activation function. An example is provided in section \ref{NNFully}.\\
+		In a typical NN information stored in neurons is transferred into the next layer by a weighted sum. The connected neuron of the following layer then applies a non-linear function, called activation function, to calculate it's final value. This process in repeated until the output layer is reached. The activation function as well as the amount and order\todo{reword "order"} of connections can vary in between layers. The system according to which a network is designed is called a network architecture. The most important architectures in the following work will be \textit{dense deep feed forward} and \textit{autoencoder}. To give insight into the basic working principle an example neural network is depicted and described in the following section \ref{NNExample}.\\
 		~\\
 		%\todo{General description of NN use-cases and strength compared to "old" machine learning methods such as support vector manchines.}
 		%Generally speaking neural networks are used to solve the equation $f(x) = y$ for $f()$. In other words it is used to make a fit to data points. There are many already established well known methods to do so. Therefore it is natural to ask what the advantages and disadvantages of neural networks compared to more traditional fitting methods are. To contrast neural networks we will consider support vector machines and analytical fits.
-		Neural networks are usually used in two ways, optimization or classification. Well known examples are 
+		Neural networks are usually used in two ways, optimization or classification. Well known examples are handwriting recognition as classification and least mean squares (LMS) optimization\todo{think of better example}.
 		\subsection{Fully Connected}
-			\label{NNFully}
-			A fully connected or dense neural network like depicted in in figure \ref{Img_NNFully} is characterized by connecting every neuron from the previous to the following layer with a weight. In contrast to other networks this allows for a very high flexibility but also lacks the spatial context of data. This kind of network is especially well suited for data that is given in form of vectors or drawn from an arbitrary parameter space.%\todo{insert reference}
-			
+			\label{NNExample}
+			A fully connected or dense neural network like depicted in figure \ref{Img_NNFully} is characterized by connecting every neuron from the previous to the following layer with a weight. In contrast to other networks this allows for a very high flexibility but also lacks the spatial context of data. This kind of network is especially well suited for data that is given in form of vectors or drawn from an arbitrary parameter space.%\todo{insert reference}
 			
 			\begin{figure}
 				\includegraphics[width=\textwidth]{images/simpleNN.png}
@@ -38,20 +38,51 @@
 			\end{figure}
 
 			%\todo{Funktionsweise}
-			The working principle is to form a weighted sum $\sum_{i=1}^{N} w_{i,j} * x_{i}$ over the values from neurons of the previous layer $x_{i}$ weighted by the connecting weight $w_{i,j}$. The weighted sum is then evaluated by the activation function $\sigma()$ such that the new value $x_j = \sigma(\sum_{i=1}^{N} w_{i,j} * x_{i})$. Here i refers to the index of the neuron in the previous layer and j to the index of the neuron in the current layer.\\
-			Since forming a weighted sum is a linear operation the activation function must be non-linear to enable the network to learn non-linear behaviour.\footnote{ref needed} The most common activation functions are the rectifier also called rectified linear unit (short ReLU) and exponential linear unit (ELU). Both are inspired by the asymmetrical behaviour of biological neural connections\footnote{reference needed}.\\
+			The working principle is to form a weighted sum $\sum_{k=1}^{N} w_{j,k} \cdot x_{k}$ over the values from neurons of the previous layer $x_{k}$ weighted by the connecting weight $w_{j,k}$. The weighted sum is then evaluated by the activation function $\sigma()$ such that the new value $x_j = \sigma(\sum_{k=1}^{N} w_{j,k} \cdot x_{k})$. Here k refers to the index of the neuron in the previous layer and j to the index of the neuron in the current layer.\footnote{The order of indices becomes more intuitive when talking about backpropagation and it's matrix notation in section \ref{BackProp}}\\
+			Since forming a weighted sum is a linear operation the activation function must be non-linear to enable the network to learn non-linear behaviour.\todo{ref needed} The most common activation functions are the rectifier also called rectified linear unit (ReLU) and exponential linear unit (ELU) shown in figure \ref{ReLUELU}. Both are inspired by the asymmetrical behaviour of biological neural connections\todo{reference needed}.\\
+			
+			\begin{figure}
+				\begin{subfigure}{.49\textwidth}
+					\centering
+					%\includegraphics[width=0.8*\linewidth]{images/ReLU.png}
+					\missingfigure[figwidth=0.5*\linewidth]{Picture depicting ReLU}
+					\subcaption{Rectified Linear Unit}
+					\label{ReLU}
+				\end{subfigure}
+				\begin{subfigure}{.49\textheight}
+					\centering
+					%\include{width=.8\linewidth}{images/ELU.png}
+					\missingfigure[figwidth=0.5*\linewidth]{Picture depicting ELU}
+					\subcaption{Exponential Linear Unit}
+					\label{ELU}
+				\end{subfigure}
+				\caption{Example activation functions rectified linear unit (a) and  exponential linear unit (b) used to introduce non-linearity into neural networks.}
+				\label{ReLUELU}
+			\end{figure}
+			\subsection{Training}
 			%\todo{Describe training cycle}
+			Before a neural network can be put to work it needs to be trained. To train a NN a set of training and test data has to be generated. This work uses the afore mentioned monte carlo simulations from the EIRENE code.
+			The training data consists of input e.g. temperature and density of the plasma and output e.g. the sputtering rate of the first wall. The EIRENE input data is used as input of the network and the sputtering rate is compared to the output of the network via a cost function. Afterwards the weights of the network are adjusted by using backpropagation, which is a method that calculates partial weight derivatives of the output. A more detailed explanation can be found in section \ref{BackProp} \todo{add citation}.\\
+			%\todo{Explain use of batches, Epochs, Regularization}
+			
+			\\
+			\subsubsection{Backpropagation}
+			\label{BackProp}
+			\begin{equiation}
+				
+			\end{equiation}
+			
 		
 			%\todo{Mention Convolutional to contrast}
-			In contrast to fully connected networks convolutional networks apply a so called filter to the input. These filters consider the inputs of nearby neurons as well. They are usually used in image recognition and require data that has information stored in patterns, most commonly special patterns as in images. Fig. \ref{Img_NNConv} depicts an exemplary convolutional network for image data and gives indication to it's working procedure.
+			In contrast to fully connected networks convolutional networks apply a so called filter to the input. These filters consider the inputs of nearby neurons as well. They are usually used in image recognition and require data that has information stored in patterns, most commonly special patterns as in images. Fig. \ref{Img_NNConv} depicts an exemplary convolutional network for image data and gives indication to its working procedure.
 		
-			%\begin{figure}
-			%	\missingfigure[figwidth=0.5*\textwidth]{Picture depicting exemplary Dense NN}
-			%	\caption{Exemplary Conv NN}
-			%	\label{Img_NNConv}
-			%\end{figure}
+			\begin{figure}
+				\missingfigure[figwidth=0.5*\textwidth]{Picture depicting exemplary convolutional NN}
+				\caption{Exemplary Conv NN}
+				\label{Img_NNConv}
+			\end{figure}
 		
-		\subsection{Structures}
+
 			
 		 
 		\subsection{Hyper parameters}
@@ -61,6 +92,7 @@
 				The depth of the network correlates directly to the amount of chained non-linear functions. Therefore it strongly influences the ability of a NN to learn abstract patterns. The more complicated a pattern is the more depth is "required" to learn the pattern. For example a simple classification between left and right only requires a shallow network, whereas recognizing different brands of car requires a deeper network.
 			\subsubsection{Width}
 				The width of a layer refers to the amount of neurons in that layer. Often networks are build of layers with the same width in each hidden layer. If that is the case one sometimes speaks of the width of the network which is then equivalent to width of a/each hidden layer.
+			\subsubsection{Architectures}
 			\subsubsection{Activation or Activation Function}
 				As previously discussed the activation function introduces non-linearty to the network. Some activation function will be better suited to model a certain problem than others. If information about the model or pattern to be predicted is known, an activation function close to this will have better performance. For example predicting outcome of a sine function will perform better with exponential activations or uneven polynomial activations than even polynomials.%\todo{citation needed}
 			\subsubsection{Loss Function}

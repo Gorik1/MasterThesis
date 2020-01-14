@@ -1,3 +1,7 @@
+#ignore TeX building files
+*.aux
+*.log
+
 #ignore ini files
 *.ini
 
