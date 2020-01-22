@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.5.4)  11 JAN 2020 10:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.5.4)  18 JAN 2020 18:35
 entering extended mode
 **./main.tex
 (main.tex
@@ -878,14 +878,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 41--43
 
  []
 
-
-Underfull \vbox (badness 1248) has occurred while \output is active []
-
- [5 <./images/simpleNN.png (PNG copy)>]
-
-LaTeX Warning: Marginpar on page 6 moved.
-
-
+[5 <./images/simpleNN.png (PNG copy)>]
 Overfull \hbox (71.8554pt too wide) in paragraph at lines 48--48
 [][][][]\OT1/cmr/m/n/12 Picture 
  []
@@ -941,10 +934,16 @@ Overfull \hbox (93.79648pt too wide) in paragraph at lines 45--59
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \hbox (badness 10000) in paragraph at lines 64--67
 
- [6]
-[7]) [8] [9]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 68--69
+
+ []
+
+[6] [7] [8]) [9]
 \openout2 = `./TeX_files/results.aux'.
 
  (TeX_files/results.tex [10
@@ -1053,10 +1052,10 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 13699 strings out of 493305
- 273034 string characters out of 3138842
- 319891 words of memory out of 3000000
- 16950 multiletter control sequences out of 15000+200000
+ 13708 strings out of 493305
+ 273229 string characters out of 3138842
+ 320046 words of memory out of 3000000
+ 16959 multiletter control sequences out of 15000+200000
  10413 words of font info for 36 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,11n,94p,860b,889s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1072,7 +1071,7 @@ b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Prog
 ram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsl12.pfb><C:/Program File
 s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX
  2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on main.pdf (23 pages, 257627 bytes).
+Output written on main.pdf (23 pages, 260337 bytes).
 PDF statistics:
  132 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

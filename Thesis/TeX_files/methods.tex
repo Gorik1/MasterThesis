@@ -40,38 +40,56 @@
 			%\todo{Funktionsweise}
 			The working principle is to form a weighted sum $\sum_{k=1}^{N} w_{j,k} \cdot x_{k}$ over the values from neurons of the previous layer $x_{k}$ weighted by the connecting weight $w_{j,k}$. The weighted sum is then evaluated by the activation function $\sigma()$ such that the new value $x_j = \sigma(\sum_{k=1}^{N} w_{j,k} \cdot x_{k})$. Here k refers to the index of the neuron in the previous layer and j to the index of the neuron in the current layer.\footnote{The order of indices becomes more intuitive when talking about backpropagation and it's matrix notation in section \ref{BackProp}}\\
 			Since forming a weighted sum is a linear operation the activation function must be non-linear to enable the network to learn non-linear behaviour.\todo{ref needed} The most common activation functions are the rectifier also called rectified linear unit (ReLU) and exponential linear unit (ELU) shown in figure \ref{ReLUELU}. Both are inspired by the asymmetrical behaviour of biological neural connections\todo{reference needed}.\\
+		
+		\subsection{Training}
+			%\todo{Describe training cycle}
+			Before a neural network can be put to work it needs to be trained. To train a NN a set of training and test data has to be generated. This work uses the afore mentioned monte carlo simulations from the EIRENE code.
+			The training data consists of input e.g. temperature and density of the plasma and output e.g. the sputtering rate of the first wall. The EIRENE input data is used as input of the network and the sputtering rate is compared to the output of the network via a cost function. Afterwards the weights of the network are adjusted by using backpropagation, which is a method that calculates partial weight derivatives of the output. A more detailed explanation can be found in section \ref{BackProp} \todo{add citation}.\\
+			%\todo{Explain use of batches, Epochs, Regularization}
+			
+			~\\
+			\subsubsection{Backpropagation}
+				\label{BackProp}
+				\begin{equation}
+					\frac{\partial F}{\partial w}
+				\end{equation}
+			
+		\subsection{Activation Functions}
+			\todo{Write Transition}
+			When designing a neural network it is important to consider which activation function to use. There are requirements of a suited activation as well as varying advantage of using one or another. A major problem of neural networks can be that without a zero centred data set vanishing of gradients can occur that limits or even stops the learning process. To better understand this phenomenon it is necessary to look at the backpropagation in the training process.\\
+			As explained in section \ref{BackProp} in order to adjust the weights it is necessary to calculate the partial derivative of the cost function in respect to each weight. These derivatives in general depend on the derivative of the previous layer. Choosing an activation like a sigmoid \footnote{$f(x)=\frac{1}{1+e^-x}$} leads to a derivative \footnote{$f(x)=\frac{e^-x}{(e^-x+1)^2$}} with vanishing values at the fringes. For each layer between the current and the output the backpropagation will have a partial derivative as a factor with values between 0 and 1. Hence in a network with realistic depth e.g. 50, the partial derivative calculated for adjusting the weight will be almost always negligible for the beginning layers.\\
+			
+			%\begin{equaition}
+			%	\frac{\partial L}{\partial a} = \frac{\partial L}{\partial d} * \frac{\partial d}{\partial c} * \frac{\partial c}{\partial b} * \frac{\partial b}{\partial a}
+			%\end{equaition}
+			
+			To avoid vanishing gradients a better choice of activation can be found. The most common activation for neural networks is the rectified linear unit (ReLU).
+			\begin{equation}
+				f(x) = 	\begin{cases}
+							0 & x < 0\\
+							x & x \geq 0
+						\end{cases}
+				\label{EQ:ReLU}
+			\end{equation}
+			The derivatives of this function is easily computed to 0 for $ x < 0$ and 1 for $ x \geq 0$. While an activation like the sigmoid function has two sided saturation\footnote{Values at either end of the spectrum have small derivatives.}\todo{reword} which lead to vanishing gradients. The ReLU activation saturates for negative values, which can be interpreted as neurons that work like switches specialising in detecting certain features \todo{add citation Vanishing gradients blogpost}. In some networks this is a wanted quality of the ReLU activation.\\
+			\todo{Read up on reasoning for this feature}Furthermore one sided saturation 
 			
 			\begin{figure}
 				\begin{subfigure}{.49\textwidth}
 					\centering
-					%\includegraphics[width=0.8*\linewidth]{images/ReLU.png}
-					\missingfigure[figwidth=0.5*\linewidth]{Picture depicting ReLU}
+					\includegraphics[width=0.8*\linewidth]{images/ReLU.pdf}
 					\subcaption{Rectified Linear Unit}
 					\label{ReLU}
 				\end{subfigure}
 				\begin{subfigure}{.49\textheight}
 					\centering
-					%\include{width=.8\linewidth}{images/ELU.png}
-					\missingfigure[figwidth=0.5*\linewidth]{Picture depicting ELU}
+					\includegraphics{width=.8\linewidth}{images/Elu.pdf}
 					\subcaption{Exponential Linear Unit}
 					\label{ELU}
 				\end{subfigure}
 				\caption{Example activation functions rectified linear unit (a) and  exponential linear unit (b) used to introduce non-linearity into neural networks.}
 				\label{ReLUELU}
 			\end{figure}
-			\subsection{Training}
-			%\todo{Describe training cycle}
-			Before a neural network can be put to work it needs to be trained. To train a NN a set of training and test data has to be generated. This work uses the afore mentioned monte carlo simulations from the EIRENE code.
-			The training data consists of input e.g. temperature and density of the plasma and output e.g. the sputtering rate of the first wall. The EIRENE input data is used as input of the network and the sputtering rate is compared to the output of the network via a cost function. Afterwards the weights of the network are adjusted by using backpropagation, which is a method that calculates partial weight derivatives of the output. A more detailed explanation can be found in section \ref{BackProp} \todo{add citation}.\\
-			%\todo{Explain use of batches, Epochs, Regularization}
-			
-			\\
-			\subsubsection{Backpropagation}
-			\label{BackProp}
-			\begin{equiation}
-				
-			\end{equiation}
-			
 		
 			%\todo{Mention Convolutional to contrast}
 			In contrast to fully connected networks convolutional networks apply a so called filter to the input. These filters consider the inputs of nearby neurons as well. They are usually used in image recognition and require data that has information stored in patterns, most commonly special patterns as in images. Fig. \ref{Img_NNConv} depicts an exemplary convolutional network for image data and gives indication to its working procedure.
