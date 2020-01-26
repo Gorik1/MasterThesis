@@ -1,14 +1,32 @@
 \chapter{Methods}
 	This chapter is concerned with introducing the methods used to investigate the data reduction of the previously introduced model. The focus of this work will be on artificial neural networks (ANN in short) and Gaussian processes.
-	The following list will provide a brief overview of other machine learning techniques that could be employed to 
+	The following list will provide a brief overview of other machine learning techniques that are frequently employed in machine learning approaches:
 	\begin{itemize}
 		\item Support Vector Machines (SVM):\\
-		%Support Vector Machines
-		Support Vector Machines (in short SVM) are used to classify data similar to ANNs. In contrast to ANNs SVMs are build up from theory and contain little Hyperparameters\footnote{Please refer to section \ref{HyperPar} for further information.} making them easier to analyse and less prone to overfitting. Generally speaking a SVM tries to seperate data by calculating a hyperplane using given training data. In more complex situations transformations of the parameter space into a higher dimensional space wherein the p
-		\item Random Forests:\\
-		\todo{Short description of Random Forests}
-		\item Boosting:\\
-		\todo{Short description of Boosting methods}
+			%Support Vector Machines
+			SVMs are used to classify data similar to ANNs. In contrast to ANNs SVMs are build up from theory and contain little Hyperparameters\footnote{Please refer to section \ref{HyperPar} for further information.} making them easier to analyse and less prone to overfitting. Generally speaking a SVM tries to separate data by calculating a hyperplane using given training data. The separation has a margin\footnote{Area around separation plane that contains no data.} that is maximized. Classification of SVMs are based on which side of the separation the data point lies. For non-linear classification the kernel trick\footnote{add source for further information} can be used to create a high dimensional feature space.
+			\todo{add citation}
+			Better suited for classification tasks. Could be used in future endeavours to assess the viability of a certain configuration by classifying input toward a threshold value, e.g. Sputter rate for first wall lower than X \todo{What is X?}\\
+			There are variations of regression SVMs which are difficult to optimize for performance since SVMs rely on analytically calculating the separating hyperplane.\\
+		\item Random Forests :\\
+			\todo{Short description of Random Forests}
+			\todo{add citation: https://www.oreilly.com/library/view/hands-on-machine-learning/9781789346411/e17de38e-421e-4577-afc3-efdd4e02a468.xhtml}
+			\todo{add citation: https://towardsdatascience.com/understanding-random-forest-58381e0602d2}
+			\begin{enumerate}
+				\item Random forest are ensembles of decision trees. Hence the name \\
+				\item Each individual tree provides classification. Class with most votes is prediction of the random forest.\\
+				\item A forest with many uncorrelated trees outperforms highly correlated forest\\
+				\item Also good predictive performance, but slower prediction which makes it unsuited.
+			\end{enumerate}
+		\item Adaptive Boosting:\\
+			\begin{enumerate}
+				\item "The weak learners in AdaBoost are decision trees with a single split, called decision stumps.\\				
+				AdaBoost works by putting more weight on difficult to classify instances and less on those already handled well.\\				
+				AdaBoost algorithms can be used for both classification and regression problem."\\
+				\item Adaptive Boosting combines weak classifiers\footnote{Here Stumps, which are very simple decision trees. Basically one feature classifier} into strong classifiers by using weighted sums. Adding new weak classifiers improves the ensemble as long as new classifiers are better than random guesses. If new classifiers perform better on instances that were problematic before than it is added with a higher weight.\footnote{The improvement of the classical Boosting method to the adaptive Boosting (AdaBoosting) won the Gödel Prize in 2003}
+			\end{enumerate}
+			\todo{add citation: https://towardsdatascience.com/understanding-adaboost-2f94f22d5bfe}
+			\todo{Short description of Boosting methods}
 	\end{itemize}
 	\section{Neural Networks}
 		The following section is concerned with discussing neural networks as a means of investigating functional dependencies.\footnote{To aid with understanding the terminology used there is a glossary in the appendix section \ref{Glossary}.}\\		
@@ -27,9 +45,8 @@
 		%\todo{General description of NN use-cases and strength compared to "old" machine learning methods such as support vector manchines.}
 		%Generally speaking neural networks are used to solve the equation $f(x) = y$ for $f()$. In other words it is used to make a fit to data points. There are many already established well known methods to do so. Therefore it is natural to ask what the advantages and disadvantages of neural networks compared to more traditional fitting methods are. To contrast neural networks we will consider support vector machines and analytical fits.
 		Neural networks are usually used in two ways, optimization or classification. Well known examples are handwriting recognition as classification and least mean squares (LMS) optimization\todo{think of better example}.
-		\subsection{Fully Connected}
+		\subsection{Functionality}
 			\label{NNExample}
-			A fully connected or dense neural network like depicted in figure \ref{Img_NNFully} is characterized by connecting every neuron from the previous to the following layer with a weight. In contrast to other networks this allows for a very high flexibility but also lacks the spatial context of data. This kind of network is especially well suited for data that is given in form of vectors or drawn from an arbitrary parameter space.%\todo{insert reference}
 			
 			\begin{figure}
 				\includegraphics[width=\textwidth]{images/simpleNN.png}
@@ -46,18 +63,158 @@
 			Before a neural network can be put to work it needs to be trained. To train a NN a set of training and test data has to be generated. This work uses the afore mentioned monte carlo simulations from the EIRENE code.
 			The training data consists of input e.g. temperature and density of the plasma and output e.g. the sputtering rate of the first wall. The EIRENE input data is used as input of the network and the sputtering rate is compared to the output of the network via a cost function. Afterwards the weights of the network are adjusted by using backpropagation, which is a method that calculates partial weight derivatives of the output. A more detailed explanation can be found in section \ref{BackProp} \todo{add citation}.\\
 			%\todo{Explain use of batches, Epochs, Regularization}
-			
-			~\\
 			\subsubsection{Backpropagation}
 				\label{BackProp}
+				To talk about Backpropagation it is necessary to first set down a notation. In the following $w^l_{j,k}$ will denote the weight of the connection from neuron $k$ in layer $l-1$ to neuron $j$ in layer $l$. Furthermore we will reference the activation function as $\sigma(\:)$, the activation $a^l_j = \sigma \left( \sum^{}_{k} w^l_{j,k} \cdot a^{l-1}_j +b^l_j \right)$ cost function as $C$. Later on the quantity $w^l_{j,k} \cdot a^{l-1}_j +b^l_j$ will be useful and called weighted input $z^l_j$. Many of the notation above can be understood as a vector across neurons of a layer, hence omitting the indices $j$ and $k$.\\
+				This leads to the vector notation:
 				\begin{equation}
-					\frac{\partial F}{\partial w}
+					a^l = \sigma(w^l a^{l-1} + b_l) = \sigma(z^l)
+					\label{EQ:Activation}
 				\end{equation}
+				\todo{add citation: http://neuralnetworksanddeeplearning.com/chap2.html}
+				The backpropagation algorithm aims to provide a computational fast way of calculating the partial derivatives \ref{EQ:BPPart1} and \ref{EQ:BPPart2}. 
+				\begin{equation}
+					\frac{\partial C}{\partial w^l_{j,k}}
+					\label{EQ:BPPart1}
+				\end{equation}
+				\begin{equation}
+					\frac{\partial C}{\partial b^l_j}
+					\label{EQ:BPPart2}
+				\end{equation}
+				Before looking at the partial derivatives of the cost function it is necessary to make two assumptions about the cost function $C$.			
+				\paragraph{Assumptions of the cost function}\todo{Maybe reformat?}
+					~\\ The following two assumptions have to be made.
+					\begin{enumerate}
+						\item The cost function can be written as an average of cost functions for individual training examples.
+						\begin{equation}
+							C = \frac{1}{n} \sum_{x} C_x
+							\label{EQ:CostCond1}
+						\end{equation}
+						\item The cost function can be written as a function of the outputs $a^L$ of the network:
+						\begin{equation}
+							C = C(a^L)
+						\end{equation}
+						Where $L$ is the number of layers in a network such that the activation $a^L$ is the output of the network.
+					\end{enumerate}
+					A good example for a cost function that fulfils these requirements is the quadratic cost function
+					\begin{equation}
+						C(a^L) = \frac{1}{2} \left\| y - a^L \right\|^2 = \frac{1}{2} \sum_j \left(y_j -a^L_j \right)^2
+						\label{EQ:Cost2}
+					\end{equation}
+					Please note that $y$ is a given parameter and not learned by the network therefore it is not a variable of the cost function. Furthermore the partial derivative $\frac{\partial C}{\partial a^L_j} = (a^L_j -y_j)$ is known and easily evaluated. 
+			\paragraph{Back to Backpropagation}\todo{Change paragraph title}
+				A few  more intermediate steps are necessary:
+				\begin{enumerate}
+					\item Define the error $\delta^l_j \equiv \frac{\partial C}{\partial z^l_j}$.
+					\item Start with the error of the output layer: 
+					\begin{equation}
+						\delta^L_j = \frac{\partial C}{\partial a^L_j}\sigma'\left(z^L_j\right)
+						\label{EQ:BPDel}
+					\end{equation}
+					\item Express $\delta_L$ in a matrix equation\footnote{Hadamard prodcut of two vectors x and y is given by $x \odot y= x_j \cdot y_j$}
+					\begin{equation}
+						\delta^L = \nabla_a C \odot \sigma'\left(z^L\right)
+						\label{EQ:BPMat1}
+					\end{equation}
+					\item Express $\delta^l$ as a function of $\delta^{l+1}$:
+						\begin{equation}
+							\delta^l = \left(\left(w^{l+1}\right)^T \delta^{l+1}\right) \odot \sigma'\left(z^l\right)
+							\label{EQ:BPMat2}
+						\end{equation}
+				\end{enumerate}
+				Now the partial derivative \ref{EQ:BPPart1} can be expressed as:
+				\begin{equation}
+					\frac{\partial C}{\partial w^l_{j,k}} = a^{l-1}_k \delta^l_j
+					\label{EQ:BPdCdw}
+				\end{equation}
+				And the partial derivative \ref{EQ:BPPart2} can be expressed as:
+				\begin{equation}
+					\frac{\partial C}{\partial b^l_j} = \delta^l_j \quad \Rightarrow \quad \frac{\partial C}{\partial b} = \delta
+					\label{EQ:BPdCdb}
+				\end{equation}
+				Equations \ref{EQ:BPMat1} and \ref{EQ:BPMat2} provide a fast functionality once the components are known. Luckily all $\sigma'(\:)$ and $\frac{\partial C}{\partial a^L_j}$ are known before start of training and all weight matrices $w^{l+1}$ are calculated during forward pass of each training point. Lastly the error $\delta^l$ can be deduced from the following error $\delta^{l+1}$. Hence, as the name suggests, the algorithm works from layer $L$ backward to the first layer $l=1$.\\
+				Therefore the main computational cost of backpropagation is to apply the matrix multiplication of $\left(w^{l+1}\right)^T$ to $\delta^{l+1}$. This can be done in a computational efficient manner over multiple training samples called mini-batches.\footnote{For a more detailed explanation and short proofs of equations \ref{EQ:BPMat1} to \ref{EQ:BPdCdb} please refer to \todo{add citation}}
+
+			\subsubsection{Choice of optimizer}
+				With the partial derivative of the cost function in respect to any given weight and bias it is possible to adjust them. Additionally a learning rate $\eta$ that depends on the type of optimizer used and architecture of the network has to be chosen. A basic optimizer is the first order Gradient Descend. It applies the following formula to update parameters $\theta$:
+				\begin{equation}
+					\theta_{t+1}=\theta_t - \eta \nabla C(\theta_t)
+					\label{EQ:GD}
+				\end{equation}
+				Where theta can be any $w^l_{j,k}$ or $b^l_j$ from the previous section \ref{BackProp}.\\
+				There are multiple optimization techniques that improve upon gradient descend. A few concepts are briefly mentioned here, but for a more detailed explanation please refer to \todo{add citation https://towardsdatascience.com/ types-of-optimization-algorithms-used-in-neural -networks-and-ways-to-optimize-gradient-95ae5d39529f}:
+				\begin{description}
+					\item[Mini Batches] Applying a parameter update after each training example will cause fluctuations that can be helpful in finding minima, but also slow the convergence once close to them. On the other hand applying only one update per training set slows the learning rate immensely. It might not even be possible for training sets that are too large to fit in memory at once. To compromise one uses a mini batch system where subsets of training data are accumulated for update steps. Typical mini batch sizes range from 50 to 256 training examples.
+					\item[Momentum] Using the gradient descend optimizer it is easy to see that moving along a slope one can imagine a ball rolling down a slope collecting momentum along the way. This is realized by adjusting the weight update with an additional term from the previous update.
+					\begin{eqnarray}
+						\theta_{t+1} & = & \theta_t - V(t)\\
+						V(t) & = & \gamma V(t-1)  + \eta \nabla C(\theta_{t})
+					\end{eqnarray}
+					Where $\gamma$ is a simple numerical factor to control the size of the momentum. A typical value for $\gamma$ is around $0.9$.\todo{Turn link in footnote into citation}\footnote{This factor can be thought of as how many previous time steps influence the current update. See https://towardsdatascience.com/stochastic-gradient-descent-with-momentum-a84097641a5d for more information.}\\
+					While this method speeds up learning  it can also lead to overshooting a minimum. To negate the negative effect a method called Nesterov Accelerated Gradient (NAG)\todo{Turn link in footnote into citation}\footnote{More details on NAGs can be found at http://cs231n.github.io/neural-networks-3/.} is used, in which a predictive term slows down momentum if the slope changes signs.
+					\begin{equation}
+						V_{NAG}(t) = \gamma V(t-1) + \eta \nabla C( \theta_t - \gamma V(t-1))
+					\end{equation} 
+					\item[Adaptive learning rates] Some neurons activate more seldom than others and therefore it makes sense to put more emphasis on updates of infrequently activated neurons by adjusting learning rates of neurons individually. To do so manually is not feasible, but there are methods like the AdaDelta optimizer that utilise a running average $E[g^2_t]$ of past updates to decrease the learning rate of neurons.
+					\begin{eqnarray}
+					\theta_{t+1} & = & \theta_t - \frac{\eta}{\sqrt{E[g^2_t]+\epsilon}}g_t \\
+					E[g^2_t] & = & \gamma E[g^2_{t-1}] + (1-\gamma) g^2_t
+					\end{eqnarray}
+					Here $g_t = \nabla C(\theta_t)$ is a shorthand for the gradient and $g^2_t$ the square not laplacian. $\epsilon$ is a small positiv number usually on the order of $10^{-8}$.
+				\end{description}
+				~\\
+				The Adaptive Moment Estimation (Adam) optimizer combines adaptive learning rates, momentum and batch application in one optimizer. It is well suited for sparse problems and has been shown to yield fast convergence. It is therefore the optimizer of choice in the following work.
+				\begin{eqnarray}
+					\hat{m_t} & = & \frac{m_t}{1-\alpha_t}\\
+					\hat{v_t} & = & \frac{v_t}{1-\beta_t} \\
+					\theta_{t+1} & = & \theta_{t} - \frac{\eta}{\sqrt{\hat{v_t}}+\epsilon}\hat{m_t}
+				\end{eqnarray}
+				Here $m_{t+1} = \alpha m_t + (1-\alpha)g_t$ denotes the mean of the gradient and $v_{t+1} = \beta v_t + (1-\beta)g^2_t$ the variance. $\alpha$ is typically as large as $\gamma$ from AdaDelta, around $0.9$. $\beta$ is close to 1 with a default value of $0.999$. 
+			\subsubsection{Regularization}
+				From the description above it should be clear that the number of parameters in a neural network can easily exceed the one or even ten thousand, some state-of-the-art neural networks even exceed 40 million parameters\todo{add citation: book Multi Media Modeling}. With that many parameters a model can fit to nearly any set of data reasonably well. John von Neumann famously said:"With four parameters I can fit an elephant, and with five I can make him wiggle his trunk."\todo{Make footnote contain citation}\footnote{See https://www.johndcook.com/blog/2011/06/21/how-to-fit-an-elephant/}\\
+				The aim of a network is to give accurate predictions on data it has never seen before. Therefore it is critical to ensure the learning gains generalize well to unknown data. Any method that aims to increase prediction accuracy on the test set at a disregard to the accuracy of the training predictions is called a regularization method. Inversely the increase in training accuracy with stagnating or even degrading of test prediction accuracy is called overtraining or overfitting.\\
+				In the following we will shortly introduce the most commonly used regularization methods.
+				\paragraph{Hold out}\todo{maybe change to subsubsubsection instead of paragraph}
+					In this work training and test sets have been mentioned before. This is the appropriate point to go into a little more depth at why the distinction is necessary. Furthermore a third set called validation set is introduced.\\
+					The naming of the three sets is already indicative of what their purpose is.
+					\begin{description}
+						\item[Training Set] Set of examples used during the training process. The network iterates on these points to adjust weights and biases to minimize the cost function.
+						\item[Validation Set] Set of examples used after training to evaluate the performance of the network. After which hyper parameters like architecture or learning rate are reassessed.
+						\item[Test set] Set of examples used after hyper parameters have been tuned. Used to judge final performance of the network.
+					\end{description}
+					At first glance validation and test set seem to fulfil a similar role in that they are used to validate the learning process of the network. Since overtraining is a major concern, it is also important to consider overfitting the hyper parameters. Considering the tuning of hyper parameters as an optimization task to improve test accuracy shows that the validation set really is more similar to the training set on a higher meta-level. Therefore it is necessary to split potential test data into a validation and test set. This allows to have a data set that the network does not see over the training and validation process.
+				\paragraph{L1 Regularization}
+					Adding an additional term to the cost function that is dependent on the weights forces the network to use small weights. For the L1 Regularization this term is $\frac{\lambda}{n} \sum_{w}^{\,} \abs{w}$ such that the new cost function becomes:
+					\begin{equation}
+						C = C_0 + \frac{\lambda}{n} \sum_{w}^{\,} \abs{w}
+					\end{equation}
+					Here $C_0$ denotes the original cost function and $\lambda$ is a hyper parameter called the regularization parameter. The effect of this regularization becomes apparent when considering its partial derivative $\frac{\partial C}{\partial w} = \frac{\lambda}{n} \mathrm{sgn}(w)$ that is used to adjust the weights via backpropagation.\\
+					The new update rule becomes:
+					\begin{equation}
+						w_{t+1} = w_t  - \frac{\eta \lambda}{n}\mathrm{sgn}(w) - \eta \frac{\partial C_0}{\partial w_t}
+					\end{equation}
+					Subtracting a constant amount drives the weights towards 0. This causes the network to focus on a few high importance neurons which can be an advantage but is not generally a wanted quality. The following L2 Regularization improves upon this idea.
+				\paragraph{L2 Regularization}
+					From the name and the previous L1 regularization it can be inferred that the L2 regularization adds the following term to the cost function:
+					\begin{equation}
+						C = C_0 + \frac{\lambda}{n} \sum_{w}^{\,} \| w^2 \|
+					\end{equation}
+					Which leads to the following update rule:
+					\begin{equation}
+						\w_{t+1} = w_t \left( 1 - \frac{\eta \lambda}{n}\right) - \eta \frac{\partial C_0}{\partial w_t}
+					\end{equation}
+					Where the L1 regularization shrank each weight by the same amount, the L2 regularization rescales the weights while penalising large weight terms harsher. This leads to many small weights contributing to the network performance. Reducing the size of weights is appealing because large weights can be used to learn single features like particularities of the training data. 
+				\paragraph{Dropout}
+					Before discussing neural networks there was a brief mention of alternative machine learning methods. Many of which made use of an ensemble of weak classifiers to work together as a strong classifier. Dropout manages to achieve much the same in that it deactivates a portion of neurons randomly selected in each training phase. The remaining neurons form a subnetwork which is tasked with learning the same task as the full size network. Each configuration of neurons or subnetwork can be seen as a weak classifier that when dropout is deactivated for validation perform together as a strong classifier. Furthermore dropout regularizes the network by averaging over the results of the subnetworks. Therefore for a overfitting a feature it has to be learned by multiple subnetworks.
+				\paragraph{Data variation}
+					
+			\subsubsection{Choice of test data}
+		\subsection{Adjusting of Hyperparameters}
 			
 		\subsection{Activation Functions}
 			\todo{Write Transition}
 			When designing a neural network it is important to consider which activation function to use. There are requirements of a suited activation as well as varying advantage of using one or another. A major problem of neural networks can be that without a zero centred data set vanishing of gradients can occur that limits or even stops the learning process. To better understand this phenomenon it is necessary to look at the backpropagation in the training process.\\
-			As explained in section \ref{BackProp} in order to adjust the weights it is necessary to calculate the partial derivative of the cost function in respect to each weight. These derivatives in general depend on the derivative of the previous layer. Choosing an activation like a sigmoid \footnote{$f(x)=\frac{1}{1+e^-x}$} leads to a derivative \footnote{$f(x)=\frac{e^-x}{(e^-x+1)^2$}} with vanishing values at the fringes. For each layer between the current and the output the backpropagation will have a partial derivative as a factor with values between 0 and 1. Hence in a network with realistic depth e.g. 50, the partial derivative calculated for adjusting the weight will be almost always negligible for the beginning layers.\\
+			As explained in section \ref{BackProp} in order to adjust the weights it is necessary to calculate the partial derivative of the cost function in respect to each weight. These derivatives in general depend on the derivative of the previous layer. Choosing an activation like a sigmoid \footnote{$f(x)=\frac{1}{1+e^-x}$} leads to a derivative \footnote{$f(x)=\frac{e^-x}{(e^-x+1)^2}$} with vanishing values at the fringes. For each layer between the current and the output the backpropagation will have a partial derivative as a factor with values between 0 and 1. Hence in a network with realistic depth e.g. 50, the partial derivative calculated for adjusting the weight will be almost always negligible for the beginning layers.\\
 			
 			%\begin{equaition}
 			%	\frac{\partial L}{\partial a} = \frac{\partial L}{\partial d} * \frac{\partial d}{\partial c} * \frac{\partial c}{\partial b} * \frac{\partial b}{\partial a}
@@ -77,13 +234,13 @@
 			\begin{figure}
 				\begin{subfigure}{.49\textwidth}
 					\centering
-					\includegraphics[width=0.8*\linewidth]{images/ReLU.pdf}
+					\includegraphics[width=\textwidth]{images/ReLU.pdf}
 					\subcaption{Rectified Linear Unit}
 					\label{ReLU}
 				\end{subfigure}
 				\begin{subfigure}{.49\textheight}
 					\centering
-					\includegraphics{width=.8\linewidth}{images/Elu.pdf}
+					\includegraphics[width=\textwidth]{images/Elu.pdf}
 					\subcaption{Exponential Linear Unit}
 					\label{ELU}
 				\end{subfigure}
@@ -111,6 +268,10 @@
 			\subsubsection{Width}
 				The width of a layer refers to the amount of neurons in that layer. Often networks are build of layers with the same width in each hidden layer. If that is the case one sometimes speaks of the width of the network which is then equivalent to width of a/each hidden layer.
 			\subsubsection{Architectures}
+				\paragraph{Dense Networks}
+					A fully connected or dense neural network like depicted in figure \ref{Img_NNFully} is characterized by connecting every neuron from the previous to all neurons of the following layer. In contrast to other networks this allows for a very high flexibility but also lacks the spatial context of data. This kind of network is especially well suited for data that is given in form of vectors or drawn from an arbitrary parameter space.\todo{insert reference}
+				\paragraph{Feed Forward Networks}
+				\paragraph{Auto-Encoder Networks}
 			\subsubsection{Activation or Activation Function}
 				As previously discussed the activation function introduces non-linearity to the network. Some activation function will be better suited to model a certain problem than others. If information about the model or pattern to be predicted is known, an activation function close to this will have better performance. For example predicting outcome of a sine function will perform better with exponential activations or uneven polynomial activations than even polynomials.%\todo{citation needed}
 			\subsubsection{Loss Function}
@@ -122,9 +283,22 @@
 			\subsubsection{Metrics}
 				Metrics are additional information gained from the network during training and evaluation. Metrics are not hyperparameters since they do not influence the resulting network but are an important source of information for further improving the network structure. For example a secondary loss function can be implemented as a metric to evaluate general optimization of the network in contrast to only the chosen loss quantity. 
 			\subsubsection{Regularization}
-				%\todo{cite https://www.analyticsvidhya.com/blog/2018/04/fundamentals-deep-learning-regularization-techniques/}
+				\todo{cite https://www.analyticsvidhya.com/blog/2018/04/fundamentals-deep-learning-regularization-techniques/}
 				Regularization describes methods used to reduce the generalization error but not the training error. Commonly used regularization methods include L1, L2, Dropout and Early Stopping regularization. L1 and L2 regularization is applied by adding a penalty term to the loss function. This requires initial knowledge of input influences. For example an image with bad resolution might have a larger penalty term applied than an image with high resolution. Dropout regularization and early stopping are used to prevent overfitting. Since the amount of parameters in the network is often on the same order of magnitude as the amount of training data, neural networks are prone to overfitting. Early stopping interrupts the training process as soon as the validation loss stops improving by a user set minimum delta. 
 	\section{Gaussian Processes}
-		\subsection{General Introduction}
+		\todo{add citation: Gaussian Processes for Machine Learning (book and website)}
+		\begin{itemize}
+			\item Based on baysian statistics\\
+			\item Definition of Gaussian Process\\
+			\item Use in machine learning
+		\end{itemize}
+		\subsection{Gaussian Process Regression}
+			\begin{itemize}
+				\item usually used for classification\\
+				\item changes to use for regression\\
+				\item limited by inverting of matrix (of input parameters)\\
+				\item better suited for problems with low amount of initial data
+			\end{itemize}
 		\subsection{GOGAP algorithm}
+			Mention
 %	\section{NNGP ?}

@@ -4,8 +4,13 @@
 \usepackage{todonotes}
 \usepackage{cite}
 \usepackage{subcaption}
-\usepackage{amsmath}s
+\usepackage{amsmath}
+\usepackage{mathtools}
 
+\setcounter{secnumdepth}{3}
+
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
 \begin{document}
 
 \author{Christof Backhaus}
@@ -15,19 +20,9 @@
 \frontmatter
 \maketitle
 \tableofcontents
-%Abstract
-%Introduction
-%	Baysian Statistics
-%	Gaussian Process Regression
-%	Neural Networks
-%	NNGP?
-%Model description
-%	Mitja Beckers Model + Parameter space
-%Data Generation
-%	low discrepency 
 
 \mainmatter
-\include{./TeX_files/introduction.tex}
+\include{./TeX_files/introduction}
 \include{./TeX_files/model}
 \include{./TeX_files/methods}
 \include{./TeX_files/results}
