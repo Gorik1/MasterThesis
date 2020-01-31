@@ -1,6 +1,21 @@
 \appendix
 \chapter{More Data probably}
 \chapter{Background Neural Network}
+	\section{Overview of Hyper parameters}
+	A hyper parameter refers to a parameter of the network that is not changed during training. Since these can have substantial influence on the performance of the network they will be explained in the following
+		\paragraph{Activation or Activation Function}
+			As previously discussed the activation function introduces non-linearity to the network. Some activation function will be better suited to model a certain problem than others. If information about the model or pattern to be predicted is known, an activation function close to this will have better performance. For example predicting outcome of a sine function will perform better with exponential activations or uneven polynomial activations than even polynomials.%\todo{citation needed}
+		\paragraph{Loss Function}
+			Choosing a loss function determines what criteria the network optimizes for which directly corresponds to which patterns it learns. For prediction one typically chooses a root mean square function. For classification cross entropy loss functions are most common.
+		\paragraph{Batch size}
+			The Dataset is divided into subsets called batches which are fed to the current network during training. After each batch the weights are adjusted. Splitting the dataset in this way is advantageous to the computational performance during training. Less memory is used during training and the number of epochs trained is reduced. The flip side of using a batch size smaller than the number of training data is that the gradient for optimization will be worse in comparison to the gradient calculated with the full data set. 
+		\paragraph{Epochs}
+			An epoch describes a full training cycle of training, validating and adjusting weights for the entire training data set. If the batch size is smaller than the number of training points then multiple\footnote{Number of batches in one epoch = rounded up $\left(\frac{Amount of Training Data}{Batch Size}\right)$} adjustments are made.%\todo{recheck wording}
+		\paragraph{Metrics}
+			Metrics are additional information gained from the network during training and evaluation. Metrics are not hyperparameters since they do not influence the resulting network but are an important source of information for further improving the network structure. For example a secondary loss function can be implemented as a metric to evaluate general optimization of the network in contrast to only the chosen loss quantity. 
+		\paragraph{Regularization}
+			\todo{cite https://www.analyticsvidhya.com/blog/2018/04/fundamentals-deep-learning-regularization-techniques/}
+			Regularization describes methods used to reduce the generalization error but not the training error. Commonly used regularization methods include L1, L2, Dropout and Early Stopping regularization. L1 and L2 regularization is applied by adding a penalty term to the loss function. This requires initial knowledge of input influences. For example an image with bad resolution might have a larger penalty term applied than an image with high resolution. Dropout regularization and early stopping are used to prevent overfitting. Since the amount of parameters in the network is often on the same order of magnitude as the amount of training data, neural networks are prone to overfitting. Early stopping interrupts the training process as soon as the validation loss stops improving by a user set minimum delta.
 	\section{Introduction to Neural Networks}
 	Glossary: \label{Glossary}
 	\begin{itemize}

@@ -12,39 +12,35 @@
 			\todo{Short description of Random Forests}
 			\todo{add citation: https://www.oreilly.com/library/view/hands-on-machine-learning/9781789346411/e17de38e-421e-4577-afc3-efdd4e02a468.xhtml}
 			\todo{add citation: https://towardsdatascience.com/understanding-random-forest-58381e0602d2}
-			\begin{enumerate}
-				\item Random forest are ensembles of decision trees. Hence the name \\
-				\item Each individual tree provides classification. Class with most votes is prediction of the random forest.\\
-				\item A forest with many uncorrelated trees outperforms highly correlated forest\\
-				\item Also good predictive performance, but slower prediction which makes it unsuited.
-			\end{enumerate}
+				\item Random forest are ensembles of decision trees, hence the name forest. Each individual tree provides a classification prediction. The class with most votes is prediction of the random forest.\\
+				A forest with many uncorrelated trees outperforms highly correlated forest. Random forests have good predictive performance, but slower prediction time which makes them unsuited for system codes.
 		\item Adaptive Boosting:\\
-			\begin{enumerate}
-				\item "The weak learners in AdaBoost are decision trees with a single split, called decision stumps.\\				
-				AdaBoost works by putting more weight on difficult to classify instances and less on those already handled well.\\				
-				AdaBoost algorithms can be used for both classification and regression problem."\\
-				\item Adaptive Boosting combines weak classifiers\footnote{Here Stumps, which are very simple decision trees. Basically one feature classifier} into strong classifiers by using weighted sums. Adding new weak classifiers improves the ensemble as long as new classifiers are better than random guesses. If new classifiers perform better on instances that were problematic before than it is added with a higher weight.\footnote{The improvement of the classical Boosting method to the adaptive Boosting (AdaBoosting) won the Gödel Prize in 2003}
-			\end{enumerate}
+			Not unlike random forests AdaBoost works with an ensemble of decision trees, though in contrast the decision trees used are single split trees called stumps. When training an AdaBoost algorithm the algorithm boosts weights of individual stumps based on their contribution to difficult to classify instances.
+%			\begin{enumerate}
+%				\item "The weak learners in AdaBoost are decision trees with a single split, called decision stumps.\\				
+%				AdaBoost works by putting more weight on difficult to classify instances and less on those already handled well.\\				
+%				AdaBoost algorithms can be used for both classification and regression problem."\\
+%				\item Adaptive Boosting combines weak classifiers\footnote{Here Stumps, which are very simple decision trees. Basically one feature classifier} into strong classifiers by using weighted sums. Adding new weak classifiers improves the ensemble as long as new classifiers are better than random guesses. If new classifiers perform better on instances that were problematic before than it is added with a higher weight.\footnote{The improvement of the classical Boosting method to the adaptive Boosting (AdaBoosting) won the Gödel Prize in 2003}
+%			\end{enumerate}
 			\todo{add citation: https://towardsdatascience.com/understanding-adaboost-2f94f22d5bfe}
-			\todo{Short description of Boosting methods}
 	\end{itemize}
 	\section{Neural Networks}
 		The following section is concerned with discussing neural networks as a means of investigating functional dependencies.\footnote{To aid with understanding the terminology used there is a glossary in the appendix section \ref{Glossary}.}\\		
 		\subsection{General Introduction To Neural Networks}
 		%Definition
-		An artificial neural network (ANN) in the following called neural network, abbreviated to NN, is "a computing system made up of a number of simple, highly interconnected processing elements, which process information by their dynamic state response to external inputs." \cite{NNPrimer} %\todo{cite: In "Neural Network Primer: Part I" by Maureen Caudill, AI Expert, Feb. 1989}\\
+			An artificial neural network (ANN) in the following called neural network, abbreviated to NN, is "a computing system made up of a number of simple, highly interconnected processing elements, which process information by their dynamic state response to external inputs." \cite{NNPrimer} %\todo{cite: In "Neural Network Primer: Part I" by Maureen Caudill, AI Expert, Feb. 1989}\\
 		% Historical Context, First Introduction, Basic idea
-		First concepts of learning algorithms based on neural plasticity have been introduced in the late 1940s by D. O. Hebb \todo{citation needed}. In 1975 backpropagation became possible via an algorithm by Werbo\todo{citation needed}, this led to an increase in machine learning popularity. During the 1980s other methods like support vector machines and linear classifiers became the preferred and/or dominating machine learning approach. With the rise in computational power in recent years neural networks have gained back a lot of popularity.\\
-		The concept idea of neural networks is to replicate the ability of the human brain to learn and to adapt to new information. The structure and naming convention reflect this origin.\\
+			First concepts of learning algorithms based on neural plasticity have been introduced in the late 1940s by D. O. Hebb \todo{citation needed}. In 1975 backpropagation became possible via an algorithm by Werbo\todo{citation needed}, this led to an increase in machine learning popularity. During the 1980s other methods like support vector machines and linear classifiers became the preferred and/or dominating machine learning approach. With the rise in computational power in recent years neural networks have gained back a lot of popularity.\\
+			The concept idea of neural networks is to replicate the ability of the human brain to learn and to adapt to new information. The structure and naming convention reflect this origin.\\
 		%Structue: Requirements, Deep networks
-		A neural network is made up of small processing units called neurons. These are grouped together into so called layers. Every network needs at least two layers, the input layer and the output layer. If a network has intermediary layers between input and output, they are called hidden layers. A network with at least two hidden layers is called a deep neural network (DNN). The amount of layers in a network is called the depth of the network. While the amount of neurons in a layer is called the layers width.
+			A neural network is made up of small processing units called neurons. These are grouped together into so called layers. Every network needs at least two layers, the input layer and the output layer. If a network has intermediary layers between input and output, they are called hidden layers. A network with at least two hidden layers is called a deep neural network (DNN). The amount of layers in a network is called the depth of the network. While the amount of neurons in a layer is called the layers width.
 		%As mentioned above the neurons are highly interconnected. The structure of connections determine the type of network. In the following we will discuss fully connected networks\footnote{Fully connected networks are also called dense networks.}. These feature a connection between each neuron of adjacent layers\footnote{The amount of connections between two layers in a dense network is therefore equal the the product of the width of adjacent layers.}
 		%Basic working principle, introduced non-linearity
-		In a typical NN information stored in neurons is transferred into the next layer by a weighted sum. The connected neuron of the following layer then applies a non-linear function, called activation function, to calculate it's final value. This process in repeated until the output layer is reached. The activation function as well as the amount and order\todo{reword "order"} of connections can vary in between layers. The system according to which a network is designed is called a network architecture. The most important architectures in the following work will be \textit{dense deep feed forward} and \textit{autoencoder}. To give insight into the basic working principle an example neural network is depicted and described in the following section \ref{NNExample}.\\
-		~\\
+			In a typical NN information stored in neurons is transferred into the next layer by a weighted sum. The connected neuron of the following layer then applies a non-linear function, called activation function, to calculate it's final value. This process in repeated until the output layer is reached. The activation function as well as the amount and order\todo{reword "order"} of connections can vary in between layers. The system according to which a network is designed is called a network architecture. The most important architectures in the following work will be \textit{dense deep feed forward} and \textit{autoencoder}. To give insight into the basic working principle an example neural network is depicted and described in the following section \ref{NNExample}.\\
+			~\\
 		%\todo{General description of NN use-cases and strength compared to "old" machine learning methods such as support vector manchines.}
 		%Generally speaking neural networks are used to solve the equation $f(x) = y$ for $f()$. In other words it is used to make a fit to data points. There are many already established well known methods to do so. Therefore it is natural to ask what the advantages and disadvantages of neural networks compared to more traditional fitting methods are. To contrast neural networks we will consider support vector machines and analytical fits.
-		Neural networks are usually used in two ways, optimization or classification. Well known examples are handwriting recognition as classification and least mean squares (LMS) optimization\todo{think of better example}.
+			Neural networks are usually used in two ways, optimization or classification. Well known examples are handwriting recognition as classification and least mean squares (LMS) optimization\todo{think of better example}.
 		\subsection{Functionality}
 			\label{NNExample}
 			
@@ -201,104 +197,131 @@
 					\end{equation}
 					Which leads to the following update rule:
 					\begin{equation}
-						\w_{t+1} = w_t \left( 1 - \frac{\eta \lambda}{n}\right) - \eta \frac{\partial C_0}{\partial w_t}
+						w_{t+1} = w_t \left( 1 - \frac{\eta \lambda}{n}\right) - \eta \frac{\partial C_0}{\partial w_t}
 					\end{equation}
 					Where the L1 regularization shrank each weight by the same amount, the L2 regularization rescales the weights while penalising large weight terms harsher. This leads to many small weights contributing to the network performance. Reducing the size of weights is appealing because large weights can be used to learn single features like particularities of the training data. 
 				\paragraph{Dropout}
 					Before discussing neural networks there was a brief mention of alternative machine learning methods. Many of which made use of an ensemble of weak classifiers to work together as a strong classifier. Dropout manages to achieve much the same in that it deactivates a portion of neurons randomly selected in each training phase. The remaining neurons form a subnetwork which is tasked with learning the same task as the full size network. Each configuration of neurons or subnetwork can be seen as a weak classifier that when dropout is deactivated for validation perform together as a strong classifier. Furthermore dropout regularizes the network by averaging over the results of the subnetworks. Therefore for a overfitting a feature it has to be learned by multiple subnetworks.
 				\paragraph{Data variation}
-					
+					As explained overfitting happens when a model has more parameters than data points to fit. Hence procuring more training data would remedy this problem. Data variation provides a method to expand the pool of training examples without the need for new data.\\
+					It is more easily explained when thinking of images to classify. A common example is recognition of handwritten numbers. Here a training example is an image of a single digit, which can be streched, rotated or otherwise be transformed and still be recognizable as the same digit. Therefore applying a transformation to the training data allows to multiply the number of available training examples by the amount of transformations applied.\\
+					For the task at hand a data transformation can be applied and seen as measurement inaccuracy for the inputs and stochastic inaccuracy of the monte carlo data for the output.\footnote{This assumes that the functionality of the underlying model is smooth, which can be seen as given due to the network trying to learn such a smooth function anyways.}\\
+					A neat side effect of data variation is that the model becomes more robust to exactly the transformations applied. Again this can be more easily understood in terms of image recognition. For example face recognition software might be able to better recognize reflections if a flip transformation (mirror effect) has been applied to the training examples.
 			\subsubsection{Choice of test data}
-		\subsection{Adjusting of Hyperparameters}
-			
-		\subsection{Activation Functions}
-			\todo{Write Transition}
-			When designing a neural network it is important to consider which activation function to use. There are requirements of a suited activation as well as varying advantage of using one or another. A major problem of neural networks can be that without a zero centred data set vanishing of gradients can occur that limits or even stops the learning process. To better understand this phenomenon it is necessary to look at the backpropagation in the training process.\\
-			As explained in section \ref{BackProp} in order to adjust the weights it is necessary to calculate the partial derivative of the cost function in respect to each weight. These derivatives in general depend on the derivative of the previous layer. Choosing an activation like a sigmoid \footnote{$f(x)=\frac{1}{1+e^-x}$} leads to a derivative \footnote{$f(x)=\frac{e^-x}{(e^-x+1)^2}$} with vanishing values at the fringes. For each layer between the current and the output the backpropagation will have a partial derivative as a factor with values between 0 and 1. Hence in a network with realistic depth e.g. 50, the partial derivative calculated for adjusting the weight will be almost always negligible for the beginning layers.\\
-			
-			%\begin{equaition}
-			%	\frac{\partial L}{\partial a} = \frac{\partial L}{\partial d} * \frac{\partial d}{\partial c} * \frac{\partial c}{\partial b} * \frac{\partial b}{\partial a}
-			%\end{equaition}
-			
-			To avoid vanishing gradients a better choice of activation can be found. The most common activation for neural networks is the rectified linear unit (ReLU).
-			\begin{equation}
-				f(x) = 	\begin{cases}
-							0 & x < 0\\
-							x & x \geq 0
-						\end{cases}
-				\label{EQ:ReLU}
-			\end{equation}
-			The derivatives of this function is easily computed to 0 for $ x < 0$ and 1 for $ x \geq 0$. While an activation like the sigmoid function has two sided saturation\footnote{Values at either end of the spectrum have small derivatives.}\todo{reword} which lead to vanishing gradients. The ReLU activation saturates for negative values, which can be interpreted as neurons that work like switches specialising in detecting certain features \todo{add citation Vanishing gradients blogpost}. In some networks this is a wanted quality of the ReLU activation.\\
-			\todo{Read up on reasoning for this feature}Furthermore one sided saturation 
-			
+				To validate and test network performance in this work half as many points as for training were chosen via random input variables (between 0 and 1). Then the monte carlo simulation was run and recorded along the corresponding input.
+		\subsection{Hyperparameters}
+			\label{HyperPar}
+			\subsubsection{Activation Functions}
+				\todo{Write Transition}
+				When designing a neural network it is important to consider which activation function to use. There are requirements of a suited activation as well as varying advantage of using one or another.\\
+				In the past a major problem of neural networks has been vanishing of gradients.\footnote{
+				As explained in section \ref{BackProp} in order to adjust the weights it is necessary to calculate the partial derivative of the cost function in respect to each weight. Backpropagation can be done without needing to apply the chain rule to calculate the partial derivatives, but using the chain rule obviously has to yield the same result, if our algorithm is working correctly.\\
+				Choosing a sigmoid $f(x)=\frac{1}{1+e^-x}$ as activation function leads to a derivative $f(x)=\frac{e^-x}{(e^-x+1)^2}$ with vanishing values at the fringes. For each layer between the current and the output applying the chain rule will result in a partial derivative factor with values between 0 and 1. Hence in a network with realistic depth e.g. 50, the partial derivative calculated for adjusting the weight will be almost always negligible for the beginning layers.}\\
+				To avoid vanishing gradients a better choice than the sigmoid can be found. The most common activation function for neural networks is the rectified linear unit (ReLU), shown in figure \ref{Fig:ReLU}.
+				\begin{equation}
+					f(x) =
+					\begin{cases}
+						0 & x < 0\\
+						x & x \geq 0
+					\end{cases}
+					\label{EQ:ReLU}
+				\end{equation}
+				The derivatives of this function is easily computed to 0 for $ x < 0$ and 1 for $ x \geq 0$. While an activation like the sigmoid function has two sided saturation\footnote{Values at either end of the spectrum have small derivatives.}. The ReLU activation saturates only for negative values, which can be interpreted as neurons that work like switches specialising in detecting certain features \todo{add citation see comment after PReLU}. In some networks this is a wanted quality of the ReLU activation.\\
+				The downside of saturation, and it's vanishing gradient, whether one or two sided is that once a neuron has reached a saturating value it will change hardly or not at all from it, due to the small or even 0 gradient. This leads to a slow down or stagnation of the learning process.\\
+				To alleviate the 0 gradient of the ReLU activation one can introduce a leaky ReLU or Parametric ReLU (PReLU) function. That has a flatter linear part in the negative range:
+				\begin{equation}
+					f(x) =
+					\begin{cases}
+						\alpha x & x < 0\\
+						x & x \geq 0
+					\end{cases}
+					\label{EQ:PReLU}
+				\end{equation}
+				If $\alpha$ is randomly initialized or static the function is called (Randomized) Leaky ReLU. If $\alpha$ is a parameter of the network and improved during training, the function is called PReLU. A typical value for a static parameter is $\alpha = 0.01$.\footnote{Also some works indicate that for a static parameter $\alpha = \frac{1}{5.5}$ is a better choice.} \todo{add citation}\\ %https://blog.paperspace.com/vanishing-gradients-activation-function/ and 
+				An even better activation function is the Exponential Linear Unit (ELU), depicted in \ref{Fig:ELU}, which offers a one sided saturation with a monotone and smooth gradient. The downside is that while it performs generally better in terms of accuracy, it is also slower in both training and predictions, since a lot of exponential functions have to be evaluated.\\
+				\begin{equation}
+				f(x) =
+					\begin{cases}
+						\alpha (e^x - 1) & x < 0 \\
+						x & x \geq 0
+					\end{cases}
+				\end{equation}
 			\begin{figure}
 				\begin{subfigure}{.49\textwidth}
 					\centering
 					\includegraphics[width=\textwidth]{images/ReLU.pdf}
 					\subcaption{Rectified Linear Unit}
-					\label{ReLU}
+					\label{Fig:ReLU}
 				\end{subfigure}
 				\begin{subfigure}{.49\textheight}
 					\centering
 					\includegraphics[width=\textwidth]{images/Elu.pdf}
 					\subcaption{Exponential Linear Unit}
-					\label{ELU}
+					\label{Fig:ELU}
 				\end{subfigure}
 				\caption{Example activation functions rectified linear unit (a) and  exponential linear unit (b) used to introduce non-linearity into neural networks.}
-				\label{ReLUELU}
+				\label{Fig:ReLUELU}
 			\end{figure}
 		
-			%\todo{Mention Convolutional to contrast}
-			In contrast to fully connected networks convolutional networks apply a so called filter to the input. These filters consider the inputs of nearby neurons as well. They are usually used in image recognition and require data that has information stored in patterns, most commonly special patterns as in images. Fig. \ref{Img_NNConv} depicts an exemplary convolutional network for image data and gives indication to its working procedure.
-		
-			\begin{figure}
-				\missingfigure[figwidth=0.5*\textwidth]{Picture depicting exemplary convolutional NN}
-				\caption{Exemplary Conv NN}
-				\label{Img_NNConv}
-			\end{figure}
-		
-
+		\subsubsection{Architecture}
+			The architecture of a network refers to its shape and type of connection. As previously done it is useful to first set down some fundamental terms:
+			\paragraph{Depth}
+			The amount of layers in a network is referred to as the depth of the network. Commonly the input and output layers are omitted for this count, since they are essential for any network.
+			\paragraph{Width}
+			The width of a layer refers to the amount of neurons in that layer. Often networks are build of layers with the same width in each hidden layer. If that is the case one speaks of the width of the network.
+			\paragraph{Dense layers}
+			A fully connected or dense neural network like depicted in figure \ref{Img_NNFully} is characterized by connecting every neuron from the previous to all neurons of the following layer. In contrast to other networks this allows for a very high flexibility but also lacks the spatial context of data. This kind of network is especially well suited for data that is given in form of vectors or drawn from an arbitrary parameter space.\todo{insert reference}
+			\paragraph{Feed Forward Networks}
+			Any network that propagates information only from input to output is called a feed forward network.
+			\paragraph{Recurrent networks} Recurrent networks allow the use of outputs as inputs. They are typically used in speech and text recognition and processing. Recurrent networks excel in contextualizing information. For example recognizing words as part of a sentence structure.
+			\paragraph{Auto-Encoder Networks}
+				
+			\paragraph{Other types}
+				There is a wide range of different architectures, some of which can be seen in fig. \ref{Fig:NNZoo}. Most of which are not of further importance to this work, but at least convolutional, probabilistic and spiking networks should be mentioned. Since they excel in their respective fields.
+			%\paragraph{Spiking networks} Spiking networks adapt the biological property of a neuron to fire a signal if an inner potential has been reached. To this goal the state of each neuron is described via a differential equation that decays over time and increases if activated by an incoming spike.
 			
-		 
-		\subsection{Hyper parameters}
-			\label{HyperPar}
-			A hyper parameter refers to a parameter of the network that is not changed during training. Since these can have substantial influence on the performance of the network they will be explained in the following
-			\subsubsection{Depth}
-				The depth of the network correlates directly to the amount of chained non-linear functions. Therefore it strongly influences the ability of a NN to learn abstract patterns. The more complicated a pattern is the more depth is "required" to learn the pattern. For example a simple classification between left and right only requires a shallow network, whereas recognizing different brands of car requires a deeper network.
-			\subsubsection{Width}
-				The width of a layer refers to the amount of neurons in that layer. Often networks are build of layers with the same width in each hidden layer. If that is the case one sometimes speaks of the width of the network which is then equivalent to width of a/each hidden layer.
-			\subsubsection{Architectures}
-				\paragraph{Dense Networks}
-					A fully connected or dense neural network like depicted in figure \ref{Img_NNFully} is characterized by connecting every neuron from the previous to all neurons of the following layer. In contrast to other networks this allows for a very high flexibility but also lacks the spatial context of data. This kind of network is especially well suited for data that is given in form of vectors or drawn from an arbitrary parameter space.\todo{insert reference}
-				\paragraph{Feed Forward Networks}
-				\paragraph{Auto-Encoder Networks}
-			\subsubsection{Activation or Activation Function}
-				As previously discussed the activation function introduces non-linearity to the network. Some activation function will be better suited to model a certain problem than others. If information about the model or pattern to be predicted is known, an activation function close to this will have better performance. For example predicting outcome of a sine function will perform better with exponential activations or uneven polynomial activations than even polynomials.%\todo{citation needed}
-			\subsubsection{Loss Function}
-				Choosing a loss function determines what criteria the network optimizes for which directly corresponds to which patterns it learns. For prediction one typically chooses a root mean square function. For classification cross entropy loss functions are most common.
-			\subsubsection{Batch size}
-				The Dataset is divided into subsets called batches which are fed to the current network during training. After each batch the weights are adjusted. Splitting the dataset in this way is advantageous to the computational performance during training. Less memory is used during training and the number of epochs trained is reduced. The flip side of using a batch size smaller than the number of training data is that the gradient for optimization will be worse in comparison to the gradient calculated with the full data set. 
-			\subsubsection{Epochs}
-				An epoch describes a full training cycle of training, validating and adjusting weights for the entire training data set. If the batch size is smaller than the number of training points then multiple\footnote{Number of batches in one epoch = rounded up $\left(\frac{Amount of Training Data}{Batch Size}\right)$} adjustments are made.%\todo{recheck wording}
-			\subsubsection{Metrics}
-				Metrics are additional information gained from the network during training and evaluation. Metrics are not hyperparameters since they do not influence the resulting network but are an important source of information for further improving the network structure. For example a secondary loss function can be implemented as a metric to evaluate general optimization of the network in contrast to only the chosen loss quantity. 
-			\subsubsection{Regularization}
-				\todo{cite https://www.analyticsvidhya.com/blog/2018/04/fundamentals-deep-learning-regularization-techniques/}
-				Regularization describes methods used to reduce the generalization error but not the training error. Commonly used regularization methods include L1, L2, Dropout and Early Stopping regularization. L1 and L2 regularization is applied by adding a penalty term to the loss function. This requires initial knowledge of input influences. For example an image with bad resolution might have a larger penalty term applied than an image with high resolution. Dropout regularization and early stopping are used to prevent overfitting. Since the amount of parameters in the network is often on the same order of magnitude as the amount of training data, neural networks are prone to overfitting. Early stopping interrupts the training process as soon as the validation loss stops improving by a user set minimum delta. 
-	\section{Gaussian Processes}
-		\todo{add citation: Gaussian Processes for Machine Learning (book and website)}
-		\begin{itemize}
-			\item Based on baysian statistics\\
-			\item Definition of Gaussian Process\\
-			\item Use in machine learning
-		\end{itemize}
-		\subsection{Gaussian Process Regression}
-			\begin{itemize}
-				\item usually used for classification\\
-				\item changes to use for regression\\
-				\item limited by inverting of matrix (of input parameters)\\
-				\item better suited for problems with low amount of initial data
-			\end{itemize}
-		\subsection{GOGAP algorithm}
-			Mention
+			\begin{figure}
+				\includegraphics[width=0.8\textwidth]{./images/NeuralNetworkZoo.png}
+				\caption{Zoo of Neural network architectures. Image taken from }
+				\label{Fig:NNZoo}
+			\end{figure}
+			\todo{https://www.asimovinstitute.org/author/fjodorvanveen/}
+		\subsubsection{Cost function}
+			The default cost function is the well known mean squared error formula \ref{EQ:Cost2}, that has already been used as an example before. For the more general case of calculating the cost of multiple training examples the it has to be multiplied by $\frac{1}{n}$, where $n$ is the number of examples.\\
+			Alternatively the cross-entropy function is used, if the output is on the scale of 0 to 1, which can be easily achieved by using a sigmoid or softmax activation function in the last layer.
+			\begin{equation}
+				C(x) = -\frac{1}{n} \sum_{x} \left[ y \: \mathrm{ln}(a) + (1-y) \: \mathrm{ln}(1-a) \right]
+				\label{EQ:CostCrossEntropy}
+			\end{equation}
+			Here $n$ is the number of inputs $x$ and corresponding labels $y$, $a$ denotes the activation of the last neuron layer.\\
+			The main advantage of the cross entropy function is that its partial derivative to either weights or biases does not depend on the derivative of the activation function, but on the value of the activation function. Thus it prevents slowdown of the learning process.\todo{add reference, see comment}
+			%http://neuralnetworksanddeeplearning.com/chap3.html
+			\begin{eqnarray}
+				\frac{\partial C_{\mathrm{quadratic}}}{\partial w} & = & a \sigma'(z)\\
+				frac{\partial C_{\mathrm{cross entropy}}}{\partial w} & = & \frac{1}{n} \sum_{x} x_j (\sigma(z)-y) 
+			\end{eqnarray}
+
+			\paragraph{Batch size and Epochs}
+				During training an update step can occur after each training example\footnote{This is called stochastic gradient descend.}, after the whole training set has been processed\footnote{This is called batch gradient descend.} or a after a set amount, called batch size, of training examples has been fed to the network. Research\footnote{add citation see comment} suggests that using a small batch size is optimal, but as with many other hyper parameters the exact size depends on the problem and other hyper parameters.\\
+				Smaller batch sizes lead to more noisy updates which has a regularizing effect on the network, though it increases computing time, since more updates are made.\\
+				An epoch marks the time when every training example has been shown to the network once. At that time the next batches for training are created.\footnote{For example with 100 data points and a batch size of 10, 10 random points are assigned to each batch. Meaning that batches over different epochs contain different training examples.} Epochs are a useful measure of training efficiency. Often training progress is depicted in graphs of epochs against prediction accuracy.
+			
+
+						
+%	\section{Gaussian Processes}
+%		\todo{add citation: Gaussian Processes for Machine Learning (book and website)}
+%		\begin{itemize}
+%			\item Based on baysian statistics\\
+%			\item Definition of Gaussian Process\\
+%			\item Use in machine learning
+%		\end{itemize}
+%		\subsection{Gaussian Process Regression}
+%			\begin{itemize}
+%				\item usually used for classification\\
+%				\item changes to use for regression\\
+%				\item limited by inverting of matrix (of input parameters)\\
+%				\item better suited for problems with low amount of initial data
+%			\end{itemize}
+%		\subsection{GOGAP algorithm}
+%			Mention
 %	\section{NNGP ?}
