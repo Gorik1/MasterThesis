@@ -1,0 +1,43 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[intlimits]{amsmath}
+\usepackage{physics}
+\usepackage[a4paper, left=1cm, right=1cm, top=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{mathtools}
+
+\title{Information on EIRENE for Presentation in Oberpfaffenhofen}
+
+\begin{document}
+	\begin{equation*}
+		T(r) =
+		\begin{cases}
+			T_{\textrm{ped}} + (T_0 - T_{\textrm{ped}}) \left(1 - \left(\frac{r}{r_{\textrm{ped}}} \right)^2 \right)^{\alpha_T} &\textrm{if $r \le r_{\textrm{ped}}$}\\
+			mr + b & \textrm{if $r_{\textrm{ped}} < r \le a$}\\
+			\textrm{max}\left(T_{\textrm{sed}} \cdot e^{\left( \frac{-(r-a)}{\lambda_{T_1}} \right)} , T_{min} \right) & \textrm{if $r > a$ and $T > T_{\textrm{min}}$}\\
+			T_{\textrm{min}} \cdot e^{\left( \frac{-(r-a)}{\lambda_{T_2}} \right)} & \textrm{other cases} \\
+		\end{cases}
+	\end{equation*}
+	~\\
+	with \\
+	\begin{equation*}
+		m = \frac{T_{\textrm{sed}} - T_{\textrm{ped}}}{\Delta_{\textrm{ped}}}, \quad b = T_{\textrm{sed}} - ma
+	\end{equation*}	
+	~\\
+	\begin{equation*}
+		\text{n(r)} =
+		\begin{cases}
+			n_{ped} + (n_0 - n_{ped}) \left(1 - \left(\frac{r}{r_{ped}}\right)^2 \right)^{\alpha_n} & \textrm{if $r \le r_{ped}$}\\
+			mr + b & \textrm{if $r_{ped} < r \le a$} \\
+			n_{sep} \cdot e^{\left(\frac{-(r-a)}{\lambda_n}\right)} & \textrm{other cases}
+		\end{cases}
+	\end{equation*}
+	~\\
+	with\\
+	\begin{equation*}
+	m = \frac{n_{sep} - n_{ped}}{\Delta_{ped}}, \quad b = n_{sep} - ma
+	\end{equation*}
+	
+\end{document}

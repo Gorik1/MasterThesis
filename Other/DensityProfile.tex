@@ -1,0 +1,28 @@
+\documentclass[tightpage]{standalone}
+\usepackage{varwidth}
+\usepackage[utf8]{inputenc}
+\usepackage[intlimits]{amsmath}
+\usepackage{physics}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{mathtools}
+
+\title{Information on EIRENE for Presentation in Oberpfaffenhofen}
+
+\begin{document}
+	\begin{varwidth}{\linewidth}
+	\begin{equation*}
+		n(r) =
+		\begin{cases}
+			n_{\textrm{ped}} + (n_0 - n_{\textrm{ped}}) \left(1 - \left(\frac{r}{r_{\textrm{ped}}}\right)^2 \right)^{\alpha_n} & \textrm{if $r \le r_{\textrm{ped}}$}\\
+			mr + b & \textrm{if $r_{\textrm{ped}} < r \le a$} \\
+			n_{\textrm{sed}} \cdot e^{\left(\frac{-(r-a)}{\lambda_n}\right)} & \textrm{other cases}
+		\end{cases}
+	\end{equation*}
+	~\\
+	with\\
+	\begin{equation*}
+	m = \frac{n_{\textrm{sed}} - n_{\textrm{ped}}}{\Delta_{\textrm{ped}}}, \quad b = n_{\textrm{sed}} - ma
+	\end{equation*}
+	\end{varwidth}
+\end{document}
