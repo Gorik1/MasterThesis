@@ -6,7 +6,7 @@ def load_set(path):
     x_data = data[:, :-3]
     y_data = data[:, -3]
     std_time_data = data[:, -2:]
-    return x_data, y_data
+    return x_data, y_data, std_time_data
 
 def norm_var(data):
     for column in range(data.shape[1]):

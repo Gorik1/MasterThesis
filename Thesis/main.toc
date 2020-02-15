@@ -1,46 +1,37 @@
-\contentsline {chapter}{\numberline {1}Model}{1}
-\contentsline {section}{\numberline {1.1}EIRENE 1D}{1}
-\contentsline {subsection}{\numberline {1.1.1}Kinetic Boltzmann Equations}{1}
-\contentsline {section}{\numberline {1.2}Plasma Profiles}{1}
-\contentsline {section}{\numberline {1.3}Choice of sampling set}{1}
-\contentsline {subsection}{\numberline {1.3.1}Sobol Sequence}{2}
-\contentsline {subsubsection}{Low-discrepency sequences}{2}
-\contentsline {chapter}{\numberline {2}Methods}{3}
-\contentsline {section}{\numberline {2.1}Neural Networks}{3}
-\contentsline {subsection}{\numberline {2.1.1}General Introduction To Neural Networks}{4}
-\contentsline {subsection}{\numberline {2.1.2}Fully Connected}{5}
-\contentsline {subsection}{\numberline {2.1.3}Training}{6}
-\contentsline {subsubsection}{Backpropagation}{6}
-\contentsline {subsection}{\numberline {2.1.4}Hyper parameters}{7}
-\contentsline {subsubsection}{Depth}{7}
-\contentsline {subsubsection}{Width}{7}
-\contentsline {subsubsection}{Architectures}{8}
-\contentsline {subsubsection}{Activation or Activation Function}{8}
-\contentsline {subsubsection}{Loss Function}{8}
-\contentsline {subsubsection}{Batch size}{8}
-\contentsline {subsubsection}{Epochs}{8}
-\contentsline {subsubsection}{Metrics}{8}
-\contentsline {subsubsection}{Regularization}{9}
-\contentsline {section}{\numberline {2.2}Gaussian Processes}{9}
-\contentsline {subsection}{\numberline {2.2.1}General Introduction}{9}
-\contentsline {subsection}{\numberline {2.2.2}GOGAP algorithm}{9}
-\contentsline {chapter}{\numberline {3}Results}{11}
-\contentsline {section}{\numberline {3.1}Physical Results}{11}
-\contentsline {section}{\numberline {3.2}Neural Networks}{11}
-\contentsline {subsection}{\numberline {3.2.1}Hyper Parameters}{11}
-\contentsline {subsubsection}{Depth \& Width}{11}
-\contentsline {subsubsection}{Activation}{12}
-\contentsline {subsubsection}{Loss Function}{12}
-\contentsline {subsection}{\numberline {3.2.2}Derivatives}{12}
-\contentsline {section}{\numberline {3.3}Gaussian Processes}{12}
-\contentsline {subsection}{\numberline {3.3.1}Subdivion of parameter space}{12}
-\contentsline {subsection}{\numberline {3.3.2}Derivatives}{12}
-\contentsline {section}{\numberline {3.4}Comparison}{12}
-\contentsline {subsection}{\numberline {3.4.1}Accuracy}{12}
-\contentsline {section}{\numberline {3.5}NNGP - Maybe}{12}
-\contentsline {chapter}{\numberline {A}More Data probably}{13}
-\contentsline {chapter}{\numberline {B}Background Neural Network}{15}
-\contentsline {section}{\numberline {B.1}Introduction to Neural Networks}{15}
-\contentsline {section}{\numberline {B.2}Examples of neural networks in different contexts}{16}
-\contentsline {chapter}{\numberline {C}Background Gaussian Processes}{17}
-\contentsline {section}{\numberline {C.1}Baysian Statistics}{17}
+\contentsline {chapter}{\numberline {1}Introduction}{3}% 
+\contentsline {section}{\numberline {1.1}Fusion Devices}{3}% 
+\contentsline {section}{\numberline {1.2}PROCESS Systems Code}{4}% 
+\contentsline {section}{\numberline {1.3}Reduced Model Approaches}{5}% 
+\contentsline {chapter}{\numberline {2}Model}{7}% 
+\contentsline {section}{\numberline {2.1}EIRENE}{7}% 
+\contentsline {section}{\numberline {2.2}Plasma Profiles}{8}% 
+\contentsline {subsection}{\numberline {2.2.1}Density Profile}{10}% 
+\contentsline {section}{\numberline {2.3}Choice of sampling set}{11}% 
+\contentsline {chapter}{\numberline {3}Methods}{13}% 
+\contentsline {section}{\numberline {3.1}Neural Networks}{14}% 
+\contentsline {subsection}{\numberline {3.1.1}General Introduction To Neural Networks}{14}% 
+\contentsline {subsection}{\numberline {3.1.2}Functionality}{15}% 
+\contentsline {subsection}{\numberline {3.1.3}Training}{17}% 
+\contentsline {subsubsection}{\numberline {3.1.3.1}Backpropagation}{17}% 
+\contentsline {paragraph}{Assumptions of the cost function}{17}% 
+\contentsline {paragraph}{Backpropagation algorithm}{18}% 
+\contentsline {subsubsection}{\numberline {3.1.3.2}Choice of optimizer}{19}% 
+\contentsline {subsubsection}{\numberline {3.1.3.3}Regularization}{21}% 
+\contentsline {paragraph}{Hold out}{21}% 
+\contentsline {paragraph}{L1 Regularization}{22}% 
+\contentsline {paragraph}{L2 Regularization}{22}% 
+\contentsline {paragraph}{Dropout}{23}% 
+\contentsline {paragraph}{Data variation}{23}% 
+\contentsline {subsubsection}{\numberline {3.1.3.4}Choice of test data}{24}% 
+\contentsline {subsection}{\numberline {3.1.4}Hyperparameters}{24}% 
+\contentsline {subsubsection}{\numberline {3.1.4.1}Activation Functions}{24}% 
+\contentsline {subsubsection}{\numberline {3.1.4.2}Architecture}{26}% 
+\contentsline {paragraph}{Depth}{26}% 
+\contentsline {paragraph}{Width}{26}% 
+\contentsline {paragraph}{Dense layers}{26}% 
+\contentsline {paragraph}{Feed Forward Networks}{26}% 
+\contentsline {paragraph}{Recurrent networks}{26}% 
+\contentsline {paragraph}{Autoencoder Networks}{26}% 
+\contentsline {paragraph}{Other types}{27}% 
+\contentsline {subsubsection}{\numberline {3.1.4.3}Cost function}{27}% 
+\contentsline {paragraph}{Batch size and Epochs}{27}% 

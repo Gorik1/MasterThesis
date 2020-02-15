@@ -15,5 +15,4 @@ traindata = np.loadtxt(trainfh)
 
 for element in (traindata[:, -2].size):
     norm_dist[element] = np.random.normal(loc=traindata[element, -2],
-                                 scale=traindata[element, -1], size=10)
-    
+                                          scale=traindata[element, -1], size=10)

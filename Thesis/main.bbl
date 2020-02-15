@@ -1,8 +1,176 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{TETRA}
+W.L. Barr, C.G. Bathke, J.N. Brooks, R.H. Bulmer, A.~Busigin, P.F. DuBois, M.E.
+  Fenstermacher, J.~Fink, P.A. Finn, J.D. Galambos, Y.~Gohar, G.E. Gorker, J.R.
+  Haines, A.M. Hassanein, D.R. Hicks, S.K. Ho, S.S. Kalsi, K.M. Kalyanam, J.A.
+  Kerns, J.D. Lee, J.R. Miller, R.L. Miller, J.O. Myall, Y-K.M. Peng, L.J.
+  Perkins, P.T. Spampinato, D.J. Strickler, S.L. Thomson, C.E. Wagner, R.S.
+  Willms, and R.L. Reid.
+\newblock Etr/iter systems code.
+\newblock 4 1988.
+
+\bibitem{Beckers}
+Mitja Beckers.
+\newblock Entwicklung eines werkzeugs zur modellierung der nettoerosion im
+  hauptraum der brennkammer eines tokamaks und studium der
+  plasma-wand-wechselwirkung an demo1, September 2017.
+
+\bibitem{NNNAG}
+Yoshua Bengio, Nicolas Boulanger{-}Lewandowski, and Razvan Pascanu.
+\newblock Advances in optimizing recurrent networks.
+\newblock {\em CoRR}, abs/1212.0901, 2012.
+\newblock \url{http://arxiv.org/abs/1212.0901}.
+
+\bibitem{KernelTrick}
+Saptashwa Bhattacharyya.
+\newblock Support vector machine: Kernel trick; mercer’s theorem.
+\newblock
+  \url{https://towardsdatascience.com/understanding-support-vector-machine-part-2-kernel-trick-mercers-theorem-e1e6848c6c4d},
+  2018.
+\newblock Accessed: 2020-01-31.
+
+\bibitem{BookMultimediaModeling}
+Susanne Boll, Qi~Tian, Lei Zhang, Zili Zhang, and Yi-Ping~Phoebe Chen.
+\newblock {\em Advances in Multimedia Modeling: 16th International Multimedia
+  Modeling Conference, MMM 2010, Chongqing, China, January 6-8, 2010.
+  Proceedings}.
+\newblock Springer Publishing Company, Incorporated, 1st edition, 2010.
+
+\bibitem{DOHebb}
+Richard~E Brown.
+\newblock The legacy of donald o. hebb: More than the hebb synapse.
+\newblock
+  \url{https://www.researchgate.net/publication/8954072_The_legacy_of_Donald_O_Hebb_More_than_the_Hebb_Synapse},
+  2004.
+\newblock Accessed: 2020-01-31.
+
+\bibitem{NNSGD}
+Vitaly Bushaev.
+\newblock Stochastic gradient descent with momentum.
+\newblock
+  \url{https://towardsdatascience.com/stochastic-gradient-descent-with-momentum-a84097641a5d},
+  2017.
+\newblock Accessed: 2020-01-31.
 
 \bibitem{NNPrimer}
 Maureen Caudill.
 \newblock Neural networks primer, part i.
 \newblock {\em AI Expert}, 2(12):46--52, December 1987.
+\newblock \url{http://dl.acm.org/citation.cfm?id=38292.38295}.
+
+\bibitem{NNElephant}
+John~D. Cook.
+\newblock How to fit an elephant.
+\newblock
+  \url{https://www.johndcook.com/blog/2011/06/21/how-to-fit-an-elephant/},
+  2011.
+\newblock Accessed: 2020-01-31.
+
+\bibitem{SOLPS}
+D.P Coster, O.~Wenisch, A.~Kukushkin, M.~Stanojevic, and X.~Bonnin.
+\newblock Solps 5.0 documentation.
+\newblock
+  \url{http://solps-mdsplus.aug.ipp.mpg.de:8080/solps/Documentation/solps.pdf},
+  February 2013.
+\newblock Accessed: 2020-02-09.
+
+\bibitem{AdaBoost}
+Akash Desarda.
+\newblock Understanding adaboost.
+\newblock
+  \url{https://towardsdatascience.com/understanding-adaboost-2f94f22d5bfe},
+  2019.
+\newblock Accessed: 2020-02-09.
+
+\bibitem{VanGrad}
+Ayoosh Kathuria.
+\newblock Intro to optimization in deep learning: Vanishing gradients and
+  choosing the right activation function.
+\newblock
+  \url{https://blog.paperspace.com/vanishing-gradients-activation-function/},
+  2018.
+\newblock Accessed: 2020-02-09.
+
+\bibitem{EirStudy}
+Vladislav Kotov, Detlev Reiter, and Andrey~S. Kukushkin.
+\newblock Numerical study of the iter divertorplasma with the b2-eirene
+  codepackage.
+\newblock \url{http://eirene.de/kotov_solps42_report.pdf}, 2007.
+\newblock Accessed: 2020-02-09.
+
+\bibitem{process}
+M.~Kovari, R.~Kemp, H.~Lux, P.~Knight, J.~Morris, and D.J. Ward.
+\newblock “process”: A systems code for fusion power plants—part 1:
+  Physics.
+\newblock {\em Fusion Engineering and Design}, 89(12):3054 -- 3069, 2014.
+\newblock
+  \url{http://www.sciencedirect.com/science/article/pii/S0920379614005961}.
+
+\bibitem{SVMBook}
+Alexandre Kowalczyk.
+\newblock {\em Support Vector Machines Succinctly}.
+\newblock 2017.
+\newblock
+  \url{https://www.syncfusion.com/ebooks/support_vector_machines_succinctly/introduction}.
+
+\bibitem{NNEBook}
+Alexandre Kowalczyk.
+\newblock {\em Neural Networks and Deep Learning}.
+\newblock 2019.
+\newblock Accessed: 2020-02-09.
+
+\bibitem{PPCS}
+D.~Maisonnier, D.~Campbell, I.~Cook, L.~Di Pace, L.~Giancarli, J.~Hayward,
+  A.~Li Puma, M.~Medrano, P.~Norajitra, M.~Roccella, P.~Sardain, M.Q. Tran, and
+  D.~Ward.
+\newblock Power plant conceptual studies in europe.
+\newblock {\em Nuclear Fusion}, 47(11):1524--1532, oct 2007.
+\newblock \url{https://doi.org/10.1088\%2F0029-5515\%2F47\%2F11\%2F014}.
+
+\bibitem{EIRENE}
+Detlev Reiter.
+\newblock The eirene code user manual including: B2-eirene interface.
+\newblock \url{http://www.eirene.de/html/manual.html}, 2018.
+\newblock Accessed: 2020-02-08.
+
+\bibitem{ModernCompFinance}
+Antoine Savine.
+\newblock {\em Modern Computational Finance: AAD and Parallel Simulations}.
+\newblock November 2018.
+\newblock \url{http://neuralnetworksanddeeplearning.com}.
+
+\bibitem{ImgNNZoo}
+Fjodor van Veen.
+\newblock Neural network zoo prequel: Cells and layers.
+\newblock \url{https://www.asimovinstitute.org/author/fjodorvanveen/}, 2017.
+\newblock [Online; accessed January 31, 2020].
+
+\bibitem{NNOpti}
+Anish~Singh Walia.
+\newblock Types of optimization algorithms used in neural networks and ways to
+  optimize gradient descent.
+\newblock
+  \url{https://towardsdatascience.com/types-of-optimization-algorithms-used-in-neural-networks-and-ways-to-optimize-gradient-95ae5d39529f},
+  2017.
+\newblock Accessed: 2020-01-31.
+
+\bibitem{PJWerbos}
+Paul Werbos.
+\newblock Backpropagation through time: what it does and how to do it.
+\newblock {\em Proceedings of the IEEE}, 78:1550 -- 1560, 11 1990.
+
+\bibitem{WCU}
+Ryosuke Yano, Kojiro Suzuki, and Hisayasu Kuroda.
+\newblock Formulation and numerical analysis of diatomic molecular dissociation
+  using boltzmann kinetic equation.
+\newblock {\em Physics of Fluids}, 19, 01 2007.
+
+\bibitem{RandForest}
+Tony Yiu.
+\newblock Understanding random forest.
+\newblock
+  \url{https://towardsdatascience.com/understanding-random-forest-58381e0602d2}.
+\newblock Accessed: 2020-01-31.
 
 \end{thebibliography}

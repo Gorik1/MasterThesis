@@ -1,28 +1,24 @@
 \chapter{Methods}
+	\label{Chap:Methods}
 	This chapter is concerned with introducing the methods used to investigate the data reduction of the previously introduced model. The focus of this work will be on artificial neural networks (ANN in short) and Gaussian processes.
 	The following list will provide a brief overview of other machine learning techniques that are frequently employed in machine learning approaches:
 	\begin{itemize}
-		\item Support Vector Machines (SVM):\\
+		\item Support Vector Machines (SVM) \cite{SVMBook}:\\
 			%Support Vector Machines
-			SVMs are used to classify data similar to ANNs. In contrast to ANNs SVMs are build up from theory and contain little Hyperparameters\footnote{Please refer to section \ref{HyperPar} for further information.} making them easier to analyse and less prone to overfitting. Generally speaking a SVM tries to separate data by calculating a hyperplane using given training data. The separation has a margin\footnote{Area around separation plane that contains no data.} that is maximized. Classification of SVMs are based on which side of the separation the data point lies. For non-linear classification the kernel trick\footnote{add source for further information} can be used to create a high dimensional feature space.
-			\todo{add citation}
-			Better suited for classification tasks. Could be used in future endeavours to assess the viability of a certain configuration by classifying input toward a threshold value, e.g. Sputter rate for first wall lower than X \todo{What is X?}\\
+			SVMs are used to classify data similar to ANNs. In contrast to ANNs SVMs are build up from theory and contain little Hyperparameters\footnote{Please refer to section \ref{HyperPar} for further information.} making them easier to analyse and less prone to overfitting. Generally speaking a SVM tries to separate data by calculating a hyperplane using given training data. The separation has a margin\footnote{Area around separation plane that contains no data.} that is maximized. Classification of SVMs are based on which side of the separation the data point lies. For non-linear classification the kernel trick\footnote{A detailed explanation can be found at \cite{KernelTrick}} can be used to create a high dimensional feature space.
+			Better suited for classification tasks. Could be used in future endeavours to assess the viability of a certain configuration by classifying input toward a threshold value.\\%, e.g. Sputter rate for first wall lower than X \todo{What is X?}\\
 			There are variations of regression SVMs which are difficult to optimize for performance since SVMs rely on analytically calculating the separating hyperplane.\\
 		\item Random Forests :\\
-			\todo{Short description of Random Forests}
-			\todo{add citation: https://www.oreilly.com/library/view/hands-on-machine-learning/9781789346411/e17de38e-421e-4577-afc3-efdd4e02a468.xhtml}
-			\todo{add citation: https://towardsdatascience.com/understanding-random-forest-58381e0602d2}
-				\item Random forest are ensembles of decision trees, hence the name forest. Each individual tree provides a classification prediction. The class with most votes is prediction of the random forest.\\
-				A forest with many uncorrelated trees outperforms highly correlated forest. Random forests have good predictive performance, but slower prediction time which makes them unsuited for system codes.
+			Random forest are ensembles of decision trees, hence the name forest. Each individual tree provides a classification prediction. The class with most votes is prediction of the random forest.\\
+			A forest with many uncorrelated trees outperforms highly correlated forest. Random forests have good predictive performance, but slower prediction time which makes them unsuited for system codes.\footnote{A more detailed introductory text can be found at \cite{RandForest}}
 		\item Adaptive Boosting:\\
-			Not unlike random forests AdaBoost works with an ensemble of decision trees, though in contrast the decision trees used are single split trees called stumps. When training an AdaBoost algorithm the algorithm boosts weights of individual stumps based on their contribution to difficult to classify instances.
+			Not unlike random forests AdaBoost works with an ensemble of decision trees, though in contrast the decision trees used are single split trees called stumps. When training an AdaBoost algorithm the algorithm boosts weights of individual stumps based on their contribution to difficult to classify instances.\footnote{A more detailed introductory text can be found at \cite{AdaBoost}}
 %			\begin{enumerate}
 %				\item "The weak learners in AdaBoost are decision trees with a single split, called decision stumps.\\				
 %				AdaBoost works by putting more weight on difficult to classify instances and less on those already handled well.\\				
 %				AdaBoost algorithms can be used for both classification and regression problem."\\
 %				\item Adaptive Boosting combines weak classifiers\footnote{Here Stumps, which are very simple decision trees. Basically one feature classifier} into strong classifiers by using weighted sums. Adding new weak classifiers improves the ensemble as long as new classifiers are better than random guesses. If new classifiers perform better on instances that were problematic before than it is added with a higher weight.\footnote{The improvement of the classical Boosting method to the adaptive Boosting (AdaBoosting) won the Gödel Prize in 2003}
 %			\end{enumerate}
-			\todo{add citation: https://towardsdatascience.com/understanding-adaboost-2f94f22d5bfe}
 	\end{itemize}
 	\section{Neural Networks}
 		The following section is concerned with discussing neural networks as a means of investigating functional dependencies.\footnote{To aid with understanding the terminology used there is a glossary in the appendix section \ref{Glossary}.}\\		
@@ -30,17 +26,17 @@
 		%Definition
 			An artificial neural network (ANN) in the following called neural network, abbreviated to NN, is "a computing system made up of a number of simple, highly interconnected processing elements, which process information by their dynamic state response to external inputs." \cite{NNPrimer} %\todo{cite: In "Neural Network Primer: Part I" by Maureen Caudill, AI Expert, Feb. 1989}\\
 		% Historical Context, First Introduction, Basic idea
-			First concepts of learning algorithms based on neural plasticity have been introduced in the late 1940s by D. O. Hebb \todo{citation needed}. In 1975 backpropagation became possible via an algorithm by Werbo\todo{citation needed}, this led to an increase in machine learning popularity. During the 1980s other methods like support vector machines and linear classifiers became the preferred and/or dominating machine learning approach. With the rise in computational power in recent years neural networks have gained back a lot of popularity.\\
+			First concepts of learning processes based on neural plasticity have been introduced in the late 1940s by D. O. Hebb\footnote{Hebbian theory from the neuroscientific field \cite{DOHebb}.}. In 1975 backpropagation became possible via an algorithm by Paul J. Werbos \cite{PJWerbos}, this led to an increase in machine learning popularity. During the 1980s other methods like support vector machines and linear classifiers became the preferred and/or dominating machine learning approach. With the rise in computational power in recent years neural networks have gained back a lot of popularity.\\
 			The concept idea of neural networks is to replicate the ability of the human brain to learn and to adapt to new information. The structure and naming convention reflect this origin.\\
 		%Structue: Requirements, Deep networks
 			A neural network is made up of small processing units called neurons. These are grouped together into so called layers. Every network needs at least two layers, the input layer and the output layer. If a network has intermediary layers between input and output, they are called hidden layers. A network with at least two hidden layers is called a deep neural network (DNN). The amount of layers in a network is called the depth of the network. While the amount of neurons in a layer is called the layers width.
 		%As mentioned above the neurons are highly interconnected. The structure of connections determine the type of network. In the following we will discuss fully connected networks\footnote{Fully connected networks are also called dense networks.}. These feature a connection between each neuron of adjacent layers\footnote{The amount of connections between two layers in a dense network is therefore equal the the product of the width of adjacent layers.}
 		%Basic working principle, introduced non-linearity
-			In a typical NN information stored in neurons is transferred into the next layer by a weighted sum. The connected neuron of the following layer then applies a non-linear function, called activation function, to calculate it's final value. This process in repeated until the output layer is reached. The activation function as well as the amount and order\todo{reword "order"} of connections can vary in between layers. The system according to which a network is designed is called a network architecture. The most important architectures in the following work will be \textit{dense deep feed forward} and \textit{autoencoder}. To give insight into the basic working principle an example neural network is depicted and described in the following section \ref{NNExample}.\\
+			In a typical NN information stored in neurons is transferred into the next layer by a weighted sum. The connected neuron of the following layer then applies a non-linear function, called activation function, to calculate it's final value. This process in repeated until the output layer is reached. The activation function as well as the amount and interconnectivity of connections can vary in between layers. The system according to which a network is designed is called a network architecture. The most important architectures in the following work will be \textit{dense deep feed forward} and \textit{autoencoder}. To give insight into the basic working principle an example neural network is depicted and described in the following section \ref{NNExample}.\\
 			~\\
 		%\todo{General description of NN use-cases and strength compared to "old" machine learning methods such as support vector manchines.}
 		%Generally speaking neural networks are used to solve the equation $f(x) = y$ for $f()$. In other words it is used to make a fit to data points. There are many already established well known methods to do so. Therefore it is natural to ask what the advantages and disadvantages of neural networks compared to more traditional fitting methods are. To contrast neural networks we will consider support vector machines and analytical fits.
-			Neural networks are usually used in two ways, optimization or classification. Well known examples are handwriting recognition as classification and least mean squares (LMS) optimization\todo{think of better example}.
+			Neural networks are usually used in two ways, optimization or classification. Well known examples are handwriting recognition as classification and least mean squares (LMS) optimization. %Think of better example for optimization
 		\subsection{Functionality}
 			\label{NNExample}
 			
@@ -52,22 +48,21 @@
 
 			%\todo{Funktionsweise}
 			The working principle is to form a weighted sum $\sum_{k=1}^{N} w_{j,k} \cdot x_{k}$ over the values from neurons of the previous layer $x_{k}$ weighted by the connecting weight $w_{j,k}$. The weighted sum is then evaluated by the activation function $\sigma()$ such that the new value $x_j = \sigma(\sum_{k=1}^{N} w_{j,k} \cdot x_{k})$. Here k refers to the index of the neuron in the previous layer and j to the index of the neuron in the current layer.\footnote{The order of indices becomes more intuitive when talking about backpropagation and it's matrix notation in section \ref{BackProp}}\\
-			Since forming a weighted sum is a linear operation the activation function must be non-linear to enable the network to learn non-linear behaviour.\todo{ref needed} The most common activation functions are the rectifier also called rectified linear unit (ReLU) and exponential linear unit (ELU) shown in figure \ref{ReLUELU}. Both are inspired by the asymmetrical behaviour of biological neural connections\todo{reference needed}.\\
+			Since forming a weighted sum is a linear operation the activation function must be non-linear to enable the network to learn non-linear behaviour. The most common activation functions are the sigmoid function and more recently the rectified linear unit (ReLU) and exponential linear unit (ELU) shown in figure \ref{Fig:ReLUELU}.\\
 		
 		\subsection{Training}
 			%\todo{Describe training cycle}
 			Before a neural network can be put to work it needs to be trained. To train a NN a set of training and test data has to be generated. This work uses the afore mentioned monte carlo simulations from the EIRENE code.
-			The training data consists of input e.g. temperature and density of the plasma and output e.g. the sputtering rate of the first wall. The EIRENE input data is used as input of the network and the sputtering rate is compared to the output of the network via a cost function. Afterwards the weights of the network are adjusted by using backpropagation, which is a method that calculates partial weight derivatives of the output. A more detailed explanation can be found in section \ref{BackProp} \todo{add citation}.\\
+			The training data consists of input e.g. temperature and density of the plasma and output e.g. the sputtering rate of the first wall. The EIRENE input data is used as input of the network and the sputtering rate is compared to the output of the network via a cost function. Afterwards the weights of the network are adjusted by using backpropagation, which is a method that calculates partial weight derivatives of the output. A more detailed explanation can be found in section \ref{BackProp}.\\
 			%\todo{Explain use of batches, Epochs, Regularization}
 			\subsubsection{Backpropagation}
 				\label{BackProp}
-				To talk about Backpropagation it is necessary to first set down a notation. In the following $w^l_{j,k}$ will denote the weight of the connection from neuron $k$ in layer $l-1$ to neuron $j$ in layer $l$. Furthermore we will reference the activation function as $\sigma(\:)$, the activation $a^l_j = \sigma \left( \sum^{}_{k} w^l_{j,k} \cdot a^{l-1}_j +b^l_j \right)$ cost function as $C$. Later on the quantity $w^l_{j,k} \cdot a^{l-1}_j +b^l_j$ will be useful and called weighted input $z^l_j$. Many of the notation above can be understood as a vector across neurons of a layer, hence omitting the indices $j$ and $k$.\\
+				To talk about backpropagation it is necessary to first set down a notation. In the following $w^l_{j,k}$ will denote the weight of the connection from neuron $k$ in layer $l-1$ to neuron $j$ in layer $l$. Furthermore we will reference the activation function as $\sigma(\:)$, the activation $a^l_j = \sigma \left( \sum^{}_{k} w^l_{j,k} \cdot a^{l-1}_j +b^l_j \right)$ cost function as $C$. Later on the quantity $w^l_{j,k} \cdot a^{l-1}_j +b^l_j$ will be useful and called weighted input $z^l_j$. Many of the notation above can be understood as a vector across neurons of a layer, hence omitting the indices $j$ and $k$.\footnote{This description closely follows chapter 2 of \cite{NNEBook}}\\
 				This leads to the vector notation:
 				\begin{equation}
 					a^l = \sigma(w^l a^{l-1} + b_l) = \sigma(z^l)
 					\label{EQ:Activation}
 				\end{equation}
-				\todo{add citation: http://neuralnetworksanddeeplearning.com/chap2.html}
 				The backpropagation algorithm aims to provide a computational fast way of calculating the partial derivatives \ref{EQ:BPPart1} and \ref{EQ:BPPart2}. 
 				\begin{equation}
 					\frac{\partial C}{\partial w^l_{j,k}}
@@ -78,7 +73,7 @@
 					\label{EQ:BPPart2}
 				\end{equation}
 				Before looking at the partial derivatives of the cost function it is necessary to make two assumptions about the cost function $C$.			
-				\paragraph{Assumptions of the cost function}\todo{Maybe reformat?}
+				\paragraph{Assumptions of the cost function}
 					~\\ The following two assumptions have to be made.
 					\begin{enumerate}
 						\item The cost function can be written as an average of cost functions for individual training examples.
@@ -98,7 +93,7 @@
 						\label{EQ:Cost2}
 					\end{equation}
 					Please note that $y$ is a given parameter and not learned by the network therefore it is not a variable of the cost function. Furthermore the partial derivative $\frac{\partial C}{\partial a^L_j} = (a^L_j -y_j)$ is known and easily evaluated. 
-			\paragraph{Back to Backpropagation}\todo{Change paragraph title}
+			\paragraph{Backpropagation algorithm}
 				A few  more intermediate steps are necessary:
 				\begin{enumerate}
 					\item Define the error $\delta^l_j \equiv \frac{\partial C}{\partial z^l_j}$.
@@ -129,7 +124,7 @@
 					\label{EQ:BPdCdb}
 				\end{equation}
 				Equations \ref{EQ:BPMat1} and \ref{EQ:BPMat2} provide a fast functionality once the components are known. Luckily all $\sigma'(\:)$ and $\frac{\partial C}{\partial a^L_j}$ are known before start of training and all weight matrices $w^{l+1}$ are calculated during forward pass of each training point. Lastly the error $\delta^l$ can be deduced from the following error $\delta^{l+1}$. Hence, as the name suggests, the algorithm works from layer $L$ backward to the first layer $l=1$.\\
-				Therefore the main computational cost of backpropagation is to apply the matrix multiplication of $\left(w^{l+1}\right)^T$ to $\delta^{l+1}$. This can be done in a computational efficient manner over multiple training samples called mini-batches.\footnote{For a more detailed explanation and short proofs of equations \ref{EQ:BPMat1} to \ref{EQ:BPdCdb} please refer to \todo{add citation}}
+				Therefore the main computational cost of backpropagation is to apply the matrix multiplication of $\left(w^{l+1}\right)^T$ to $\delta^{l+1}$. This can be done in a computational efficient manner over multiple training samples called mini-batches.\footnote{For a more detailed explanation and short proofs of equations \ref{EQ:BPMat1} to \ref{EQ:BPdCdb} please refer to \cite{NNEBook}}
 
 			\subsubsection{Choice of optimizer}
 				With the partial derivative of the cost function in respect to any given weight and bias it is possible to adjust them. Additionally a learning rate $\eta$ that depends on the type of optimizer used and architecture of the network has to be chosen. A basic optimizer is the first order Gradient Descend. It applies the following formula to update parameters $\theta$:
@@ -138,7 +133,7 @@
 					\label{EQ:GD}
 				\end{equation}
 				Where theta can be any $w^l_{j,k}$ or $b^l_j$ from the previous section \ref{BackProp}.\\
-				There are multiple optimization techniques that improve upon gradient descend. A few concepts are briefly mentioned here, but for a more detailed explanation please refer to \todo{add citation https://towardsdatascience.com/ types-of-optimization-algorithms-used-in-neural -networks-and-ways-to-optimize-gradient-95ae5d39529f}:
+				There are multiple optimization techniques that improve upon gradient descend. A few concepts are briefly mentioned here, but for a more detailed explanation please refer to \cite{NNOpti}:
 				\begin{description}
 					\item[Mini Batches] Applying a parameter update after each training example will cause fluctuations that can be helpful in finding minima, but also slow the convergence once close to them. On the other hand applying only one update per training set slows the learning rate immensely. It might not even be possible for training sets that are too large to fit in memory at once. To compromise one uses a mini batch system where subsets of training data are accumulated for update steps. Typical mini batch sizes range from 50 to 256 training examples.
 					\item[Momentum] Using the gradient descend optimizer it is easy to see that moving along a slope one can imagine a ball rolling down a slope collecting momentum along the way. This is realized by adjusting the weight update with an additional term from the previous update.
@@ -146,8 +141,8 @@
 						\theta_{t+1} & = & \theta_t - V(t)\\
 						V(t) & = & \gamma V(t-1)  + \eta \nabla C(\theta_{t})
 					\end{eqnarray}
-					Where $\gamma$ is a simple numerical factor to control the size of the momentum. A typical value for $\gamma$ is around $0.9$.\todo{Turn link in footnote into citation}\footnote{This factor can be thought of as how many previous time steps influence the current update. See https://towardsdatascience.com/stochastic-gradient-descent-with-momentum-a84097641a5d for more information.}\\
-					While this method speeds up learning  it can also lead to overshooting a minimum. To negate the negative effect a method called Nesterov Accelerated Gradient (NAG)\todo{Turn link in footnote into citation}\footnote{More details on NAGs can be found at http://cs231n.github.io/neural-networks-3/.} is used, in which a predictive term slows down momentum if the slope changes signs.
+					Where $\gamma$ is a simple numerical factor to control the size of the momentum. A typical value for $\gamma$ is around $0.9$.\footnote{This factor can be thought of as how many previous time steps influence the current update. See \cite{NNSGD}ef  for more information.}\\
+					While this method speeds up learning  it can also lead to overshooting a minimum. To negate the negative effect a method called Nesterov Accelerated Gradient (NAG)\footnote{More details on NAGs can be found at \cite{NNNAG}.} is used, in which a predictive term slows down momentum if the slope changes signs.
 					\begin{equation}
 						V_{NAG}(t) = \gamma V(t-1) + \eta \nabla C( \theta_t - \gamma V(t-1))
 					\end{equation} 
@@ -167,10 +162,10 @@
 				\end{eqnarray}
 				Here $m_{t+1} = \alpha m_t + (1-\alpha)g_t$ denotes the mean of the gradient and $v_{t+1} = \beta v_t + (1-\beta)g^2_t$ the variance. $\alpha$ is typically as large as $\gamma$ from AdaDelta, around $0.9$. $\beta$ is close to 1 with a default value of $0.999$. 
 			\subsubsection{Regularization}
-				From the description above it should be clear that the number of parameters in a neural network can easily exceed the one or even ten thousand, some state-of-the-art neural networks even exceed 40 million parameters\todo{add citation: book Multi Media Modeling}. With that many parameters a model can fit to nearly any set of data reasonably well. John von Neumann famously said:"With four parameters I can fit an elephant, and with five I can make him wiggle his trunk."\todo{Make footnote contain citation}\footnote{See https://www.johndcook.com/blog/2011/06/21/how-to-fit-an-elephant/}\\
+				From the description above it should be clear that the number of parameters in a neural network can easily exceed the one or even ten thousand, some state-of-the-art neural networks even exceed 40 million parameters\footnote{See \cite{BookMultimediaModeling} page 149} \todo{Search for further references}. With that many parameters a model can fit to nearly any set of data reasonably well. John von Neumann famously said:"With four parameters I can fit an elephant, and with five I can make him wiggle his trunk."\footnote{See \cite{NNElephant}}\\
 				The aim of a network is to give accurate predictions on data it has never seen before. Therefore it is critical to ensure the learning gains generalize well to unknown data. Any method that aims to increase prediction accuracy on the test set at a disregard to the accuracy of the training predictions is called a regularization method. Inversely the increase in training accuracy with stagnating or even degrading of test prediction accuracy is called overtraining or overfitting.\\
 				In the following we will shortly introduce the most commonly used regularization methods.
-				\paragraph{Hold out}\todo{maybe change to subsubsubsection instead of paragraph}
+				\paragraph{Hold out}%\todo{maybe change to subsubsubsection instead of paragraph}
 					In this work training and test sets have been mentioned before. This is the appropriate point to go into a little more depth at why the distinction is necessary. Furthermore a third set called validation set is introduced.\\
 					The naming of the three sets is already indicative of what their purpose is.
 					\begin{description}
@@ -212,7 +207,7 @@
 		\subsection{Hyperparameters}
 			\label{HyperPar}
 			\subsubsection{Activation Functions}
-				\todo{Write Transition}
+%				\todo{Write Transition}
 				When designing a neural network it is important to consider which activation function to use. There are requirements of a suited activation as well as varying advantage of using one or another.\\
 				In the past a major problem of neural networks has been vanishing of gradients.\footnote{
 				As explained in section \ref{BackProp} in order to adjust the weights it is necessary to calculate the partial derivative of the cost function in respect to each weight. Backpropagation can be done without needing to apply the chain rule to calculate the partial derivatives, but using the chain rule obviously has to yield the same result, if our algorithm is working correctly.\\
@@ -226,7 +221,7 @@
 					\end{cases}
 					\label{EQ:ReLU}
 				\end{equation}
-				The derivatives of this function is easily computed to 0 for $ x < 0$ and 1 for $ x \geq 0$. While an activation like the sigmoid function has two sided saturation\footnote{Values at either end of the spectrum have small derivatives.}. The ReLU activation saturates only for negative values, which can be interpreted as neurons that work like switches specialising in detecting certain features \todo{add citation see comment after PReLU}. In some networks this is a wanted quality of the ReLU activation.\\
+				The derivatives of this function is easily computed to 0 for $ x < 0$ and 1 for $ x \geq 0$. While an activation like the sigmoid function has two sided saturation\footnote{Values at either end of the spectrum have small derivatives.}. The ReLU activation saturates only for negative values, which can be interpreted as neurons that work like switches specialising in detecting certain features, see \cite{VanGrad}. In some networks this is a wanted quality of the ReLU activation.\\
 				The downside of saturation, and it's vanishing gradient, whether one or two sided is that once a neuron has reached a saturating value it will change hardly or not at all from it, due to the small or even 0 gradient. This leads to a slow down or stagnation of the learning process.\\
 				To alleviate the 0 gradient of the ReLU activation one can introduce a leaky ReLU or Parametric ReLU (PReLU) function. That has a flatter linear part in the negative range:
 				\begin{equation}
@@ -237,7 +232,7 @@
 					\end{cases}
 					\label{EQ:PReLU}
 				\end{equation}
-				If $\alpha$ is randomly initialized or static the function is called (Randomized) Leaky ReLU. If $\alpha$ is a parameter of the network and improved during training, the function is called PReLU. A typical value for a static parameter is $\alpha = 0.01$.\footnote{Also some works indicate that for a static parameter $\alpha = \frac{1}{5.5}$ is a better choice.} \todo{add citation}\\ %https://blog.paperspace.com/vanishing-gradients-activation-function/ and 
+				If $\alpha$ is randomly initialized or static the function is called (Randomized) Leaky ReLU. If $\alpha$ is a parameter of the network and improved during training, the function is called PReLU. A typical value for a static parameter according to \cite{VanGrad} is $\alpha = 0.01$.\footnote{Also some works indicate that for a static parameter $\alpha = \frac{1}{5.5}$ is a better choice.}\\
 				An even better activation function is the Exponential Linear Unit (ELU), depicted in \ref{Fig:ELU}, which offers a one sided saturation with a monotone and smooth gradient. The downside is that while it performs generally better in terms of accuracy, it is also slower in both training and predictions, since a lot of exponential functions have to be evaluated.\\
 				\begin{equation}
 				f(x) =
@@ -253,7 +248,7 @@
 					\subcaption{Rectified Linear Unit}
 					\label{Fig:ReLU}
 				\end{subfigure}
-				\begin{subfigure}{.49\textheight}
+				\begin{subfigure}{.49\textwidth}
 					\centering
 					\includegraphics[width=\textwidth]{images/Elu.pdf}
 					\subcaption{Exponential Linear Unit}
@@ -274,18 +269,17 @@
 			\paragraph{Feed Forward Networks}
 			Any network that propagates information only from input to output is called a feed forward network.
 			\paragraph{Recurrent networks} Recurrent networks allow the use of outputs as inputs. They are typically used in speech and text recognition and processing. Recurrent networks excel in contextualizing information. For example recognizing words as part of a sentence structure.
-			\paragraph{Auto-Encoder Networks}
-				
+			\paragraph{Autoencoder Networks}
+				Autoencoder networks are build symmetrically around a center layer. The output tries to replicate the input instead of a given label. This allows to build a network that simulates a principal component analysis. Looking at the size of the center layer, which is tried to minimize, indicates a set of parameters needed to reconstruct the full information of the input. Hence it allows for dimensionality reduction. This can be used to perform a coordinate transformation of the input data to use for later processing. An example will be shown in the results chapter, section \ref{Res:Auto}.
 			\paragraph{Other types}
 				There is a wide range of different architectures, some of which can be seen in fig. \ref{Fig:NNZoo}. Most of which are not of further importance to this work, but at least convolutional, probabilistic and spiking networks should be mentioned. Since they excel in their respective fields.
 			%\paragraph{Spiking networks} Spiking networks adapt the biological property of a neuron to fire a signal if an inner potential has been reached. To this goal the state of each neuron is described via a differential equation that decays over time and increases if activated by an incoming spike.
 			
 			\begin{figure}
 				\includegraphics[width=0.8\textwidth]{./images/NeuralNetworkZoo.png}
-				\caption{Zoo of Neural network architectures. Image taken from }
+				\caption{Zoo of Neural network architectures. Image taken from \cite{ImgNNZoo}}
 				\label{Fig:NNZoo}
 			\end{figure}
-			\todo{https://www.asimovinstitute.org/author/fjodorvanveen/}
 		\subsubsection{Cost function}
 			The default cost function is the well known mean squared error formula \ref{EQ:Cost2}, that has already been used as an example before. For the more general case of calculating the cost of multiple training examples the it has to be multiplied by $\frac{1}{n}$, where $n$ is the number of examples.\\
 			Alternatively the cross-entropy function is used, if the output is on the scale of 0 to 1, which can be easily achieved by using a sigmoid or softmax activation function in the last layer.
@@ -294,7 +288,7 @@
 				\label{EQ:CostCrossEntropy}
 			\end{equation}
 			Here $n$ is the number of inputs $x$ and corresponding labels $y$, $a$ denotes the activation of the last neuron layer.\\
-			The main advantage of the cross entropy function is that its partial derivative to either weights or biases does not depend on the derivative of the activation function, but on the value of the activation function. Thus it prevents slowdown of the learning process.\todo{add reference, see comment}
+			The main advantage of the cross entropy function is that its partial derivative to either weights or biases does not depend on the derivative of the activation function, but on the value of the activation function. Thus it prevents slowdown of the learning process.\footnote{See chapter 3 of \cite{NNEBook} for more detail.}
 			%http://neuralnetworksanddeeplearning.com/chap3.html
 			\begin{eqnarray}
 				\frac{\partial C_{\mathrm{quadratic}}}{\partial w} & = & a \sigma'(z)\\

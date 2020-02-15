@@ -13,32 +13,32 @@ fhout = open('C:/Users/Christof/Documents/GitHub/MasterThesis/Data/TestData/sing
 #fhtime1 = open('C:/Users/Christof/Documents/GitHub/MasterThesis/Data/TestData/timeout32ktest.txt')
 #fhtime2 = open('C:/Users/Christof/Documents/GitHub/MasterThesis/Data/TestData/timeout64ktest.txt')
 
-#out1 = np.loadtxt(fhout1)
+# out1 = np.loadtxt(fhout1)
 out = np.loadtxt(fhout)
-#time1 = np.loadtxt(fhtime1)
-#time2 = np.loadtxt(fhtime2)
+# time1 = np.loadtxt(fhtime1)
+# time2 = np.loadtxt(fhtime2)
 par1 = np.loadtxt(fhpar1)
 par2 = np.loadtxt(fhpar2)
-#par1 = out[:,:14]
-#par2 = out2[:,:14]
+# par1 = out[:,:14]
+# par2 = out2[:,:14]
 
-#totalout = np.concatenate((out1, out2), axis=0)
-#totaltime = np.concatenate((time1, time2), axis=0)
+# totalout = np.concatenate((out1, out2), axis=0)
+# totaltime = np.concatenate((time1, time2), axis=0)
 totalpar = np.concatenate((par1, par2), axis=0)
 print(totalpar.shape)
 length = out.shape[0]
-beginning = totalpar[:length,:]
+beginning = totalpar[:length, :]
 print(beginning.shape)
 difference = totalpar.shape[0] - length
-end = totalpar[difference:,:]
+end = totalpar[difference:, :]
 print(end.shape)
-#print(totalout.shape)
-#print(totaltime.shape)
-#print(totalpar.shape)
+# print(totalout.shape)
+# print(totaltime.shape)
+# print(totalpar.shape)
 
-#totaltime = np.reshape(totaltime, (65536, 1))
+# totaltime = np.reshape(totaltime, (65536, 1))
 
-#total = np.concatenate((totalpar, totalout, totaltime), axis=1)
+# total = np.concatenate((totalpar, totalout, totaltime), axis=1)
 totalbeginning = np.concatenate((beginning, out), axis=1)
 totalend = np.concatenate((end, out), axis=1)
 

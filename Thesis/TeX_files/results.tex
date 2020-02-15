@@ -1,8 +1,33 @@
 \chapter{Results}
+	\label{Chap:Results}
 	\section{Physical Results}
 	\section{Neural Networks}
-		\subsection{Hyper Parameters}
-			The following subsets of hyper parameters have been investigated:
+		The following subsets of hyper parameters have been investigated:
+		\subsection{Architecture}
+			To begin with a general analysis of the architecture is performed. All architectures tested in this section, have been tested with the maximum amount of data to ensure the best possible learning process. Furthermore they have been validated and tested using $2^{15}$ data points each. Due to assumptions of best suited hyper parameters as explained in chapter \ref{Chap:Methods} section \ref{HyperPar}, the initial layer of neurons uses a sigmoid activation function followed by LeakyReLU layers and the output layer has a linear activation function. Dropout has been set to 0.4, the loss function is Root-Mean-Squared and the optimizer is Adam with NAG-momentum and decay. All of these parameters can be found in table \ref{Tab:ArchPar}.\\
+			
+			\begin{tabular}{c|c|c}
+				Parameter & Value & Note\\
+				Number of Training Points & $2^{17}$ & Sobol Points to ensure coverage of parameterspace\\
+				Number of Validation Points & $2^{15}$ & Points Randomly sampled from Parameterspace \\
+				Number of Test Points & $2^{15}$ & Randomly sampled from Parameterspace\\
+				Optimizer & Adam & \\
+				Learning Rate & 0.01 & Starting Value \\
+				Momentum & & \\
+				Decay & & \\
+				Loss Function & RMS & \\
+				Activation function & Leaky ReLU & $\alpha = 0.01$\\
+				
+				
+			\end{tabular}
+		\begin{itemize}
+			\item general structure\\
+			\item individual depth\\
+			\item individual width\\
+			\item conclusion
+		\end{itemize}
+		Depth and Width together determine the total number parameters and complexity of the network. The question is how complex does the network needs to be to accurately learn the model. Ideally we'd like to trim the network as much as possible without loosing too much accuracy.\\
+		\subsection{Training Set Size}
 			Beginning with investigating the effect of the data amount. Using same network size per 
 			\begin{tabular}{c||c|c|c|c|c}
 				Number & Width & Depth (hidden) & Amount of Data & Activation & Droprate \\
@@ -16,16 +41,22 @@
 				7 & X & X & $2^15$ & X & X \\
 				8 & X & X & $2^14$ & X & X \\
 			\end{tabular}
-			\subsubsection{Depth \& Width}
-				Depth and Width together determine the total number parameters and complexity of the network. The question is how complex does the network need to be to accurately learn the model. Ideally we'd like to trim the network as much as possible without loosing too much accuracy.\\
 			\subsubsection{Activation}
-				Elu, Relu, Sigmoid
-			\subsubsection{Loss Function}
-				SGD
+				\begin{itemize}
+					\item ReLU \\
+					\item PReLU \\
+					\item ELU \\
+					\item Conclusion
+				\end{itemize}
+			\subsubsection{Optimizer}
+				\begin{itemize}
+					\item SGD with momentum\\
+					\item Adam 
+				\end{itemize}
 		\subsection{Derivatives}
-	\section{Gaussian Processes}
-		\subsection{Subdivion of parameter space}
-		\subsection{Derivatives}
-	\section{Comparison}
-		\subsection{Accuracy}
-	\section{NNGP - Maybe}
+%	\section{Gaussian Processes}
+%		\subsection{Subdivion of parameter space}
+%		\subsection{Derivatives}
+%	\section{Comparison}
+%		\subsection{Accuracy}
+%	\section{NNGP - Maybe}
