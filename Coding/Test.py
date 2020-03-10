@@ -13,25 +13,19 @@ import matplotlib.pyplot as plt
 import os
 import pickle
 import math
+import itertools as it
 
-history = pickle.load(open('../Coding/equal131072relu1/history', "rb"))
+# fh32 = open('../Data/Testdata/out32ktest.txt')
+# fh = open('../Data/Testdata/singleout')
+# out = np.loadtxt(fh)
+# top = np.ceil(np.max(out[:, 0]))
+# bot = np.floor(np.min(out[:, 0]))
+# out[:, 0] = 2 * (out[:, 0] - bot) / (top - bot) - 1
 
-loss = history['loss']
-val_loss = history['val_loss']
+# for i in range(out.shape[1]):
+#    print('Mean: ', np.mean(out[:, i]))
+#    print('Max: ', np.max(out[:, i]))
+#    print('Min: ', np.min(out[:, i]))
 
-Epochs = len(history['loss'])
-x = np.arange(0, Epochs, 1)
 
-FigReLu = plt.figure()
-plt.plot(x, loss, label='Loss')
-plt.text(round(Epochs-5, -1), loss[-1]+loss[-1]/10, '%.3f' % loss[-1])
-plt.plot(x, val_loss, label='Validation Loss')
-plt.text(round(Epochs-5, -1), val_loss[-1]+val_loss[-1]/10, '%.3f' % val_loss[-1])
-plt.title('Test Title')
-plt.xlabel('Epochs')
-plt.ylabel('Loss')
-plt.legend()
-# plt.xticks(np.arange(-1,1.01,0.5))
-# plt.yticks(np.arange(0,1.01,0.5))
-# plt.savefig('Test.pdf')
-# plt.close()
+print(tempwidth)

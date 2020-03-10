@@ -1,0 +1,10 @@
+1)	a)	Finish DataGen.py
+	b)	Create 2^17 new test data
+	c)	Create scaled copy of test data
+	d)	Mail to Detlev
+
+2)	Modify NN to also save configuration (SVG) and parameters in result.txt
+
+3)	Modify NN to incorporate scaling layers - Done
+
+4)	Switch Validation and Test data and rerun, best result

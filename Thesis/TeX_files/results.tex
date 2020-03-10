@@ -1,48 +1,66 @@
 \chapter{Results}
 	\label{Chap:Results}
-	\section{Physical Results}
+	%\section{Physical Results}
 	\section{Neural Networks}
 		The following subsets of hyper parameters have been investigated:
 		\subsection{Architecture}
 			To begin with a general analysis of the architecture is performed. All architectures tested in this section, have been tested with the maximum amount of data to ensure the best possible learning process. Furthermore they have been validated and tested using $2^{15}$ data points each. Due to assumptions of best suited hyper parameters as explained in chapter \ref{Chap:Methods} section \ref{HyperPar}, the initial layer of neurons uses a sigmoid activation function followed by LeakyReLU layers and the output layer has a linear activation function. Dropout has been set to 0.4, the loss function is Root-Mean-Squared and the optimizer is Adam with NAG-momentum and decay. All of these parameters can be found in table \ref{Tab:ArchPar}.\\
-			
-			\begin{tabular}{c|c|c}
+			\begin{tabularx}{\textwidth}{c|c|X}
 				Parameter & Value & Note\\
 				\hline
 				Number of Training Points & $2^{17}$ & Sobol Points to ensure coverage of parameterspace\\
 				Number of Validation Points & $2^{15}$ & Points Randomly sampled from Parameterspace \\
 				Number of Test Points & $2^{15}$ & Randomly sampled from Parameterspace\\
-				Optimizer & Adam & \\
-				Learning Rate & 0.01 & Starting Value \\
-				Momentum & & \\
-				Decay & & \\
+				Optimizer & Adam & $\alpha = 0.001$, $\beta_1 = 0.9$, $\beta_2 = 0.999$, $\epsilon = 10^{-8}$, \\
 				Loss Function & RMS & \\
-				Activation function & Leaky ReLU & $\alpha = 0.01$\\
-			\end{tabular}
-		
-			\begin{tabular}{c|c}
+				Activation function & Leaky ReLU & $\alpha = 0.2$\\
+				Batch size & $2^{14}$ & 8 Batches per Epoch\\
+				Maximum Epochs & $1000$ & Early Stopping with patience 50, monitoring validation loss\\
+			\end{tabularx}
+			
+			\begin{figure}
+				\centering
+				\includegraphics[width=\textwidth]{../Data/Results/Choice/Architecture.pdf}
+				\caption{Neural network architectrue with best training performance at maximum scale, without fine tuning.}
+				\label{Fig:ResArch}
+			\end{figure}
+			
+			\begin{tabularx}{\textwidth}{c|c|X}
 				Shape & Test Loss & Note \\
 				\hline
-				Evenly spaced & & \\
-				& & \\
-				Triangular & & \\
-				Reversed Triangle & & \\
-				Hourglass & & \\
-				Reversed Hourglass & & \\
-				Stretched Reversed Hourglass& & \\
-			\end{tabular}
+				Evenly spaced & 3.547966 & \\
+				Triangular & 0.971974 & \\
+				Reversed Triangle & 0.895224 & \\
+				Hourglass & 3.320479 & \\
+				Centered & 1.021901 & \\
+				Stretched Centered& 0.986 & \\
+			\end{tabularx}
+			Figure \ref{Fig:ResArch} shows the typical progression of the learning process of a neural network. The blue curve shows the training loss as training progresses. The orange curve shows the validation loss and the black line the test loss. The test loss is just a scalar value since the test evalutaion of the network is done after the training is completed.\\
+			It is expected that the training loss has the lowest value followed by the validation loss and the test loss being highest. That being said the expectation is that the test and validation loss are very close.\\
+			Initially training and validation loss might be very high due to random initialization of weights. That can also lead to bad learning behaviour, which is why all architectures have been tested multiple times to reduce the influence of bad initialization. Also the initialized weights are he-normalized.\\
+			Due to dropout the training loss stays above the validation loss. Showing that the subnetworks formed in training are not able to adequately adapt the underlying behaviour. Giving rise to investigate the influence of the droprate parameter and additionally tuning the batch size to allow the subnetsworks to better adapt during training.\\
+			All tested architectures followed the trend as shown in figure \ref{Fig:ResArch}. None showing a systematic plateauing or significantly better or worse training behaviour.\\
+			It is surprising to see a much worse value in testing than in validation, since both validation and test data have been sampled from the same random distribution. Hence it would be expected that both have similar values. Especially since no finetuning of the network has been done that would explain a lowered validation loss.\todo{Test with validation and test set switched.}
+			
+			\begin{figure}
+				\centering
+%				\includegraphics[width=\textwidth]{}
+\missingfigure{Here will be a nice figure}
+				\caption{}
+				\label{key}
+			\end{figure}
 		
 			With the general structure locked into place the next test series is used to investigate how the size of the network impacts performance, based on the assumption that a larger network will have better adaptation and hence precision, but takes more time to train, evaluate and make predictions. At first the depth of the network is kept the same while the width is varied, afterwards the width is kept constant. Lastly a test series with about constant amount of weights is done. The Results can be found in tables \ref{Tab:CDepth}, \ref{Tab:CWidth}, \ref{Tab:CPara}.
 			
-			\begin{tabular}{c|c}
+			\begin{tabularx}{\textwidth}{c|c}
 				Depth & Test Loss\\
 				\hline
-			\end{tabular}
-			\begin{tabular}{c|c}
+			\end{tabularx}
+			\begin{tabularx}{\textwidth}{c|c}
 				Width & Test Loss\\
 				\hline
-			\end{tabular}
-			\begin{tabular}{c|c|c}
+			\end{tabularx}
+			\begin{tabular}{c|c|c|c}
 				Number of Total Parameters & Depth & Width & Test Loss \\
 				\hline
 			\end{tabular}

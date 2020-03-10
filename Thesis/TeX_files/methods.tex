@@ -47,20 +47,23 @@
 			\end{figure}
 
 			%\todo{Funktionsweise}
-			The working principle is to form a weighted sum $\sum_{k=1}^{N} w_{j,k} \cdot x_{k}$ over the values from neurons of the previous layer $x_{k}$ weighted by the connecting weight $w_{j,k}$. The weighted sum is then evaluated by the activation function $\sigma()$ such that the new value $x_j = \sigma(\sum_{k=1}^{N} w_{j,k} \cdot x_{k})$. Here k refers to the index of the neuron in the previous layer and j to the index of the neuron in the current layer.\footnote{The order of indices becomes more intuitive when talking about backpropagation and it's matrix notation in section \ref{BackProp}}\\
+			The working principle is to form a weighted sum $\sum_{k=1}^{N} w_{j,k} \cdot x_{k}$ over the values from neurons of the previous layer $\vec{x}$ weighted by the connecting weight, elements of the weight matrix $\matr{w}$. The weighted sum is then evaluated by the activation function\footnote{An example activation function is the rectified linear unit function which is depicted in figure \ref{Fig:ReLU} and discussed greater detail in section \ref{Sec:Activation}} $\sigma(x_{k}, w_{j,k}, b_{j})$, with bias $b_j$ such that the new value $x_j = \sigma(\sum_{k=1}^{N} w_{j,k} \cdot x_{k} + b_j)$. Here $k$ refers to the index of the neuron in the previous layer and $j$ to the index of the neuron in the current layer.\footnote{The order of indices becomes more intuitive when talking about backpropagation and its matrix notation in section \ref{BackProp}}\\
 			Since forming a weighted sum is a linear operation the activation function must be non-linear to enable the network to learn non-linear behaviour. The most common activation functions are the sigmoid function and more recently the rectified linear unit (ReLU) and exponential linear unit (ELU) shown in figure \ref{Fig:ReLUELU}.\\
 		
 		\subsection{Training}
 			%\todo{Describe training cycle}
-			Before a neural network can be put to work it needs to be trained. To train a NN a set of training and test data has to be generated. This work uses the afore mentioned monte carlo simulations from the EIRENE code.
+			Before a neural network can be put to work it needs to be trained. To train a NN a set of training and test data has to be generated. This work uses the afore mentioned Monte Carlo simulations from the EIRENE code.
 			The training data consists of input e.g. temperature and density of the plasma and output e.g. the sputtering rate of the first wall. The EIRENE input data is used as input of the network and the sputtering rate is compared to the output of the network via a cost function. Afterwards the weights of the network are adjusted by using backpropagation, which is a method that calculates partial weight derivatives of the output. A more detailed explanation can be found in section \ref{BackProp}.\\
 			%\todo{Explain use of batches, Epochs, Regularization}
 			\subsubsection{Backpropagation}
 				\label{BackProp}
-				To talk about backpropagation it is necessary to first set down a notation. In the following $w^l_{j,k}$ will denote the weight of the connection from neuron $k$ in layer $l-1$ to neuron $j$ in layer $l$. Furthermore we will reference the activation function as $\sigma(\:)$, the activation $a^l_j = \sigma \left( \sum^{}_{k} w^l_{j,k} \cdot a^{l-1}_j +b^l_j \right)$ cost function as $C$. Later on the quantity $w^l_{j,k} \cdot a^{l-1}_j +b^l_j$ will be useful and called weighted input $z^l_j$. Many of the notation above can be understood as a vector across neurons of a layer, hence omitting the indices $j$ and $k$.\footnote{This description closely follows chapter 2 of \cite{NNEBook}}\\
+				To talk about backpropagation it is necessary to first set down a notation. In the following $\matr{w}$ dontes the weight tensor, that contains all weight matrices $\matr{w}^l$ of connections between individual layers $l$. The elements of the individual weight matrices $w^l_{j,k}$ will denote the weight of the connection from neuron $k$ in layer $l-1$ to neuron $j$ in layer $l$. Similarly the matrix $\matr{b}$ contains all bias vectors $\vec{b}^l$ of layer $l$ which in turn contain the biases $b^l_j$ to each individual neuron $j$ of layer $l$.\\
+				The activation $a^l_j = \sigma(z_j)$ denotes the weighted input $z_j = \left( \sum^{}_{k} w^l_{j,k} \cdot a^{l-1}_k + b^l_j \right)$ evaluated by the activation function $\sigma(\:)$. Finally a cost function $C$ has to be defined to evaluate the output of the network $\vec{a}^L$ and compare it to the true label $\vec{y}$\footnote{If the network has only one output y is a scalar value.} assigned to the data point $\vec{x}$ by the EIRENE simulation. In the context of training a network the label and inputs are given constants, whereas the weights and biases are adjustable. Therefore the cost function is considered to be a function of all weights and biases $C = C(\vec{a}^L) = C(\matr{w}, \matr{b})$.\\
+				%Many of the values above can be accumulated into a vector across neurons of a layer, e.g. The biases $b^l_j$ of each neuron in layer $l$ can be merged into the vector $\vec{b}^l$.
+				Shortening the weights notation of $w^l_{j,k} \cdot a^{l-1}_k$ to $\matr{w}^l \cdot a^{l-1}$ with Einstein convention for index $k$ applied.\footnote{This description closely follows chapter 2 of \cite{NNEBook}}\\
 				This leads to the vector notation:
 				\begin{equation}
-					a^l = \sigma(w^l a^{l-1} + b_l) = \sigma(z^l)
+					\vec{a}^l = \sigma(\vec{z}^l) = \sigma(\matr{w}^l \vec{a}^{l-1} + \vec{b}_l)
 					\label{EQ:Activation}
 				\end{equation}
 				The backpropagation algorithm aims to provide a computational fast way of calculating the partial derivatives \ref{EQ:BPPart1} and \ref{EQ:BPPart2}. 
@@ -81,35 +84,35 @@
 							C = \frac{1}{n} \sum_{x} C_x
 							\label{EQ:CostCond1}
 						\end{equation}
-						\item The cost function can be written as a function of the outputs $a^L$ of the network:
+						\item The cost function can be written as a function of the outputs $\vec{a}^L$ of the network:
 						\begin{equation}
-							C = C(a^L)
+							C = C(\vec{a}^L)
 						\end{equation}
-						Where $L$ is the number of layers in a network such that the activation $a^L$ is the output of the network.
+						Where $L$ is the number of layers in a network such that the activation $\vec{a}^L$ is the output of the network.
 					\end{enumerate}
 					A good example for a cost function that fulfils these requirements is the quadratic cost function
 					\begin{equation}
-						C(a^L) = \frac{1}{2} \left\| y - a^L \right\|^2 = \frac{1}{2} \sum_j \left(y_j -a^L_j \right)^2
+						C(\vec{a}^L) = \frac{1}{2} \left\| \vec{y} - \vec{a}^L \right\|^2 = \frac{1}{2} \sum_j \left(y_j -a^L_j \right)^2
 						\label{EQ:Cost2}
 					\end{equation}
-					Please note that $y$ is a given parameter and not learned by the network therefore it is not a variable of the cost function. Furthermore the partial derivative $\frac{\partial C}{\partial a^L_j} = (a^L_j -y_j)$ is known and easily evaluated. 
+					 Furthermore the partial derivative $\frac{\partial C}{\partial a^L_j} = (a^L_j - y_j)$ is known and easily evaluated. 
 			\paragraph{Backpropagation algorithm}
 				A few  more intermediate steps are necessary:
 				\begin{enumerate}
 					\item Define the error $\delta^l_j \equiv \frac{\partial C}{\partial z^l_j}$.
-					\item Start with the error of the output layer: 
+					\item Start with the error of the output layer\footnote{$\sigma'$ denotes the derivative of the activation function $\frac{\partial\sigma}{\partial z}$}: 
 					\begin{equation}
 						\delta^L_j = \frac{\partial C}{\partial a^L_j}\sigma'\left(z^L_j\right)
 						\label{EQ:BPDel}
 					\end{equation}
-					\item Express $\delta_L$ in a matrix equation\footnote{Hadamard prodcut of two vectors x and y is given by $x \odot y= x_j \cdot y_j$}
+					\item Express $\vec{\delta}^L$ in a matrix equation\footnote{Hadamard prodcut of two vectors $\vec{x}$ and $\vec{y}$ is given by $\vec{x} \odot \vec{y}= x_j \cdot y_j$}
 					\begin{equation}
-						\delta^L = \nabla_a C \odot \sigma'\left(z^L\right)
+						\vec{\delta}^L = \nabla_a C \odot \sigma'\left(\vec{z}^L\right)
 						\label{EQ:BPMat1}
 					\end{equation}
 					\item Express $\delta^l$ as a function of $\delta^{l+1}$:
 						\begin{equation}
-							\delta^l = \left(\left(w^{l+1}\right)^T \delta^{l+1}\right) \odot \sigma'\left(z^l\right)
+							\delta^l = \left(\left(\matr{w}^{l+1}\right)^T \delta^{l+1}\right) \odot \sigma'\left(\vec{z}^l\right)
 							\label{EQ:BPMat2}
 						\end{equation}
 				\end{enumerate}
@@ -120,7 +123,7 @@
 				\end{equation}
 				And the partial derivative \ref{EQ:BPPart2} can be expressed as:
 				\begin{equation}
-					\frac{\partial C}{\partial b^l_j} = \delta^l_j \quad \Rightarrow \quad \frac{\partial C}{\partial b} = \delta
+					\frac{\partial C}{\partial b^l_j} = \delta^l_j
 					\label{EQ:BPdCdb}
 				\end{equation}
 				Equations \ref{EQ:BPMat1} and \ref{EQ:BPMat2} provide a fast functionality once the components are known. Luckily all $\sigma'(\:)$ and $\frac{\partial C}{\partial a^L_j}$ are known before start of training and all weight matrices $w^{l+1}$ are calculated during forward pass of each training point. Lastly the error $\delta^l$ can be deduced from the following error $\delta^{l+1}$. Hence, as the name suggests, the algorithm works from layer $L$ backward to the first layer $l=1$.\\
@@ -132,7 +135,7 @@
 					\theta_{t+1}=\theta_t - \eta \nabla C(\theta_t)
 					\label{EQ:GD}
 				\end{equation}
-				Where theta can be any $w^l_{j,k}$ or $b^l_j$ from the previous section \ref{BackProp}.\\
+				Where $\theta$ can be any $w^l_{j,k}$ or $b^l_j$ from the previous section \ref{BackProp}.\\
 				There are multiple optimization techniques that improve upon gradient descend. A few concepts are briefly mentioned here, but for a more detailed explanation please refer to \cite{NNOpti}:
 				\begin{description}
 					\item[Mini Batches] Applying a parameter update after each training example will cause fluctuations that can be helpful in finding minima, but also slow the convergence once close to them. On the other hand applying only one update per training set slows the learning rate immensely. It might not even be possible for training sets that are too large to fit in memory at once. To compromise one uses a mini batch system where subsets of training data are accumulated for update steps. Typical mini batch sizes range from 50 to 256 training examples.
@@ -160,7 +163,7 @@
 					\hat{v_t} & = & \frac{v_t}{1-\beta_t} \\
 					\theta_{t+1} & = & \theta_{t} - \frac{\eta}{\sqrt{\hat{v_t}}+\epsilon}\hat{m_t}
 				\end{eqnarray}
-				Here $m_{t+1} = \alpha m_t + (1-\alpha)g_t$ denotes the mean of the gradient and $v_{t+1} = \beta v_t + (1-\beta)g^2_t$ the variance. $\alpha$ is typically as large as $\gamma$ from AdaDelta, around $0.9$. $\beta$ is close to 1 with a default value of $0.999$. 
+				Here $m_{t+1} = \alpha \: m_t + (1-\alpha)g_t$ denotes the mean of the gradient and $v_{t+1} = \beta v_t + (1-\beta)g^2_t$ the variance. $\alpha$ is typically as large as $\gamma$ from AdaDelta, around $0.9$. $\beta$ is close to 1 with a default value of $0.999$. 
 			\subsubsection{Regularization}
 				From the description above it should be clear that the number of parameters in a neural network can easily exceed the one or even ten thousand, some state-of-the-art neural networks even exceed 40 million parameters\footnote{See \cite{BookMultimediaModeling} page 149} \todo{Search for further references}. With that many parameters a model can fit to nearly any set of data reasonably well. John von Neumann famously said:"With four parameters I can fit an elephant, and with five I can make him wiggle his trunk."\footnote{See \cite{NNElephant}}\\
 				The aim of a network is to give accurate predictions on data it has never seen before. Therefore it is critical to ensure the learning gains generalize well to unknown data. Any method that aims to increase prediction accuracy on the test set at a disregard to the accuracy of the training predictions is called a regularization method. Inversely the increase in training accuracy with stagnating or even degrading of test prediction accuracy is called overtraining or overfitting.\\
@@ -200,14 +203,14 @@
 				\paragraph{Data variation}
 					As explained overfitting happens when a model has more parameters than data points to fit. Hence procuring more training data would remedy this problem. Data variation provides a method to expand the pool of training examples without the need for new data.\\
 					It is more easily explained when thinking of images to classify. A common example is recognition of handwritten numbers. Here a training example is an image of a single digit, which can be streched, rotated or otherwise be transformed and still be recognizable as the same digit. Therefore applying a transformation to the training data allows to multiply the number of available training examples by the amount of transformations applied.\\
-					For the task at hand a data transformation can be applied and seen as measurement inaccuracy for the inputs and stochastic inaccuracy of the monte carlo data for the output.\footnote{This assumes that the functionality of the underlying model is smooth, which can be seen as given due to the network trying to learn such a smooth function anyways.}\\
+					For the task at hand a data transformation can be applied and seen as measurement inaccuracy for the inputs and stochastic inaccuracy of the Monte Carlo data for the output.\footnote{This assumes that the functionality of the underlying model is smooth, which can be seen as given due to the network trying to learn such a smooth function anyways.}\\
 					A neat side effect of data variation is that the model becomes more robust to exactly the transformations applied. Again this can be more easily understood in terms of image recognition. For example face recognition software might be able to better recognize reflections if a flip transformation (mirror effect) has been applied to the training examples.
-			\subsubsection{Choice of test data}
-				To validate and test network performance in this work half as many points as for training were chosen via random input variables (between 0 and 1). Then the monte carlo simulation was run and recorded along the corresponding input.
+			%\subsubsection{Choice of test data}
+				%To validate and test network performance in this work half as many points as for training were chosen via random input variables (between 0 and 1). Then the monte carlo simulation was run and recorded along the corresponding input.
 		\subsection{Hyperparameters}
 			\label{HyperPar}
 			\subsubsection{Activation Functions}
-%				\todo{Write Transition}
+				\label{Sec:Activation}
 				When designing a neural network it is important to consider which activation function to use. There are requirements of a suited activation as well as varying advantage of using one or another.\\
 				In the past a major problem of neural networks has been vanishing of gradients.\footnote{
 				As explained in section \ref{BackProp} in order to adjust the weights it is necessary to calculate the partial derivative of the cost function in respect to each weight. Backpropagation can be done without needing to apply the chain rule to calculate the partial derivatives, but using the chain rule obviously has to yield the same result, if our algorithm is working correctly.\\
@@ -292,7 +295,7 @@
 			%http://neuralnetworksanddeeplearning.com/chap3.html
 			\begin{eqnarray}
 				\frac{\partial C_{\mathrm{quadratic}}}{\partial w} & = & a \sigma'(z)\\
-				frac{\partial C_{\mathrm{cross entropy}}}{\partial w} & = & \frac{1}{n} \sum_{x} x_j (\sigma(z)-y) 
+				\frac{\partial C_{\mathrm{cross entropy}}}{\partial w} & = & \frac{1}{n} \sum_{x} x_j (\sigma(z)-y) 
 			\end{eqnarray}
 
 			\paragraph{Batch size and Epochs}

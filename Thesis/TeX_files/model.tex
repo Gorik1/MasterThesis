@@ -1,11 +1,11 @@
 \chapter{Model}
 	\label{Chap:Model}
 	\section{EIRENE}
-		Eirene is a Monte Carlo code used for simulating fusion plasma particles. Its first version was written in the scope of the PhD thesis by D. Reiter. It has been used on a variety of studies\footnote{For Example a B2-EIRENE and SOLPS numerical study of Iter divertors \cite{EirStudy} } in the fusion community. The following section contains a brief introduction to the capabilities of EIRENE, followed by the specific example case it was used to study in this work.\\
+		EIRENE is a Monte Carlo code used for simulating fusion plasma particles. Its first version was written in the scope of the PhD thesis by D. Reiter. It has been used on a variety of studies\footnote{For Example a B2-EIRENE and SOLPS numerical study of Iter divertors \cite{EirStudy} } in the fusion community. The following section contains a brief introduction to the capabilities of EIRENE, followed by the specific example case it was used to study in this work.\\
 		~\\
 		EIRENE simulates transport and plasma interaction of neutral particles in a fusion device given a plasma background. It is often used in connection with the EMC3\todo{Add citation} or SOLPS\footnote{SOLPS stands for Scrape-Off Layer Plasma Simulation, see \cite{SOLPS} for detailed information.} codes to study simulations of fusion plasma.\\
 		~\\
-		The Wang Chang-Uhlenbeck (WCU) equation \cite{WCU}, a multi species set of "Boltzmann"-type equations,\todo{this is also a direct quote from eirene manual, reword or quote??} is solved by EIRENE as described in \cite{EIRENE} chapter 1. This allows to calculate trajectories and mean free path length that can be used to simulate interactions in a standard monte carlo procedure\todo{More explanation necessary?}. The interactions of neutral particles can form source terms for plasma codes. To this end the monte carlo codes uses probabilities by considering effective cross sections and plasma chemistry reaction rates.\\
+		The Wang Chang-Uhlenbeck (WCU) equation \cite{WCU}, a multi species set of "Boltzmann"-type equations,\todo{this is also a direct quote from EIRENE manual, reword or quote??} is solved by EIRENE as described in \cite{EIRENE} chapter 1. This allows to calculate trajectories and mean free path length that can be used to simulate interactions in a standard Monte Carlo procedure\todo{More explanation necessary?}. The interactions of neutral particles can form source terms for plasma codes. To this end the Monte Carlo codes uses probabilities by considering effective cross sections and plasma chemistry reaction rates.\\
 		Furthermore EIRENE is capable of calculating radiation transport and simulating charged particle movement.\footnote{Though since it is often used in conjunction with plasma codes this feature is less prominently known and hence used.} All of these features are available in arbitrary 3-dimensional geometries.\footnote{Please refer to the geometry section of the EIRENE manual \cite{EIRENE} for further information.}\\
 		~\\
 		In this work EIRENE is used in a one dimensional geometry with two surfaces. One perfectly reflective, simulating the outer wall, and one perfectly absorbing, simulating the core plasma. When particles are reflected they can cause atoms of the wall to be released as ions, which are redirected onto the wall by the surrounding magnetic field. The rate at which this happens is called a sputter rate.\\
@@ -13,7 +13,7 @@
 		The work of Mitja Beckers \cite{Beckers} used the very same model to investigate the erosion of the first wall. A more in depth introduction into the plasma physics background can be found in chapter 3 of his work and is not repeated here. Most of the concepts are rather elaborate and not suited to be summarized in a short manner. The following section will only highlight necessary parameter origins to give an insight as to the physical context of this work.
 		
 	\section{Plasma Profiles}
-		For the inputs of Eirene plasma profiles are needed, that can be dynamically provided by other algorithms like SOLPS or EMC3. Central piece of this work is to investigate if a substitute function can be found for the full range of possible plasma profiles by using big data methods. One can ascertain the physical limits of the parameters constituting the plasma profiles from tables \ref{Tab:ParameterT} and \ref{Tab:Parametern}. These limits are based on different phenomenons in plasma physics, explained by Mitja Beckers in his PhD thesis \cite{Beckers} and an example limitation is visualized in one of his graphics, which is depicted in \ref{Fig:Beckers_Constr} \todo{Look into source 55 from Becker PhD for english picture and source}.\\
+		For the inputs of EIRENE plasma profiles are needed, that can be dynamically provided by other algorithms like SOLPS or EMC3. Central piece of this work is to investigate if a substitute function can be found for the full range of possible plasma profiles by using big data methods. One can ascertain the physical limits of the parameters constituting the plasma profiles from tables \ref{Tab:ParameterT} and \ref{Tab:Parametern}. These limits are based on different phenomenons in plasma physics, explained by Mitja Beckers in his PhD thesis \cite{Beckers} and an example limitation is visualized in one of his graphics, which is depicted in \ref{Fig:Beckers_Constr} \todo{Look into source 55 from Becker PhD for english picture and source}.\\
 		
 		\begin{figure}
 			\centering
@@ -107,17 +107,17 @@
 %				P8 & NA & NA &  NA & Zur Zeit nicht in Benutzung \\
 %				P9 & NA & NA &  NA & Zur Zeit nicht in Benutzung \\
 				$\lambda_n$ & cm & $1.0$ &  $20.0$ & Penetration depth at $\rho \ge 1$\\
-				n$_{min}$ & $10^{14}$/cm$^3$ & $0$ &  $0$ & Ceiling in SOL\\
+%				n$_{min}$ & $10^{14}$/cm$^3$ & $0$ &  $0$ & Ceiling in SOL\\
 %				P12 & 1 & $ $ & $ $ & Scaling factor
 			\end{tabular}
 			\label{Tab:Parametern}
 		\end{figure}
 		
-		The input parameters for EIRENE that define the background plasma together with the sputter rate will be used as the input and label of the data set used in this work. The following section talks about how to make intelligent choices on sampling from the parameter space to improve coverage of high dimensional spaces with sparse data. This might not seem necessary for the relatively basic model of this work, but is a conceptual improvement for further projects with more complicated geometries and additional parameters.
+		The input parameters for EIRENE that define the background plasma and geometry will be used as inputs and the sputter rate will be used as the label of the data sets used in this work. The following section talks about how to make intelligent choices on sampling from the parameter space to improve coverage of high dimensional spaces with sparse data. This might not seem necessary for the relatively basic model of this work, but is a conceptual improvement for further projects with more complicated geometries and additional parameters.
 		
 	\section{Choice of sampling set}
-		Since the parameter space is high dimensional, the training points have not been selected randomly. Randomly sampled points might form clusters, which could skew the training towards a subsection of the parameter space. To avoid this a low discrepancy sequence, namely the Sobol sequence, is used to sample training data.\footnote{For a more detailed explanation of the sobol sequence and its use cases please refer to \cite{ModernCompFinance} chapter 5, section 4: 'Better Random Numbers'.} It is a sequence in base 2 that form successively finer uniform partitions of the given space. Due to this attribute observations on the influence of the size of training data set is formed on base 2 bench marks instead of intuitive base ten orders of magnitude.\\
-		The following figure \ref{Fig:512Dist} illustrates the clustering of randomly drawn data points in comparison to the sobol sequence:
+		Since the parameter space is high dimensional, the training points have not been selected randomly. Randomly sampled points might form clusters, which could skew the training towards a subsection of the parameter space. To avoid this a low discrepancy sequence, namely the Sobol sequence, is used to sample training data.\footnote{For a more detailed explanation of the Sobol sequence and its use cases please refer to \cite{ModernCompFinance} chapter 5, section 4: 'Better Random Numbers'.} It is a sequence in base 2 that form successively finer uniform partitions of the given space. Due to this attribute observations on the influence of the size of training data set is formed on base 2 bench marks instead of intuitive base ten orders of magnitude.\\
+		The following figure \ref{Fig:512Dist} illustrates the clustering of randomly drawn data points in comparison to the Sobol sequence:
 		\begin{figure}
 			\centering
 			\begin{subfigure}{.48\textwidth}
@@ -135,4 +135,7 @@
 			\caption{Comparison of data point distribution to illustrate clustering of randomly drawn samples.}
 			\label{Fig:512Dist}
 		\end{figure}
-		Especially in high dimensional spaces where data is often sparse it is important to make sure that the data is sufficiently spaced in order to adequately represent the parameter space.
+		Especially in high dimensional spaces where data is often sparse it is important to make sure that the data is sufficiently spaced in order to adequately represent the parameter space.\\
+		~\\
+		The validation and test data were sampled from a random distribution\footnote{Using pseudo random generator from numpy standart library, based on Mersenne-Twister generator.} to ensure systematics from the training data do not influence network performance evaluation.
+		
